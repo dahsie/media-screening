@@ -21,8 +21,18 @@
         {
             "country": "CH",
             "lang": [
-                "fr",
-                "de",
+                "fr"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": [
+                "de"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": [
                 "it"
             ]
         },
@@ -62,5 +72,11 @@
         "picket line",
         "employee protest"
     ],
-    "news_api_key": "News API KEY to add if you use news api"
+    "news_api_key": "News API KEY to add if you use news api",
+    "vertexai_llm": "gemini-1.5-flash",
+    "vertexai_embedding_name": "textembedding-gecko@003",
+    "chunk_size": 2000,
+    "chunk_overlap": 10,
+    "max_doc": 5,
+    "retry": 1
 }
