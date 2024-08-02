@@ -144,9 +144,9 @@ class NewsApiScraper(Scraper) :
                 sources.add(article['source']['name'])
                 self.process_article(article=article, links=links, dates=dates, times=times, descriptions=descriptions, titles=titles)
                 
-            self.links, self.dates, self.times, self.descriptions,  self.titles = links, dates, times, descriptions, titles
-            self.sources = list(sources)
-            print("search ended !")
+        self.links, self.dates, self.times, self.descriptions,  self.titles = links, dates, times, descriptions, titles
+        self.sources = list(sources)
+        print("search ended !")
             
     def scrapping(self,links, dates, times, descriptions, titles, verbose = False):
         """
