@@ -28,13 +28,13 @@ class NewsCollector:
                 self.scraper.query =  query
                 self.scraper.news_collection()
                 print(self.scraper.country, self.scraper.lang, self.scraper.query)
-                # print(self.scraper._url)
+                print(self.scraper._url)
                 data_ = self.scraper.articles_dataframe
 
-                data_ = data_.loc[data_['title'] !='',:] if data_ is not None and len(data_) !=0  else None
+                data_ = data_.loc[data_['titles'] !='',:] if data_ is not None and len(data_) !=0  else None
 
-                data_ = data_.loc[data_['text'] !='',:] if data_ is not None and  len(data_) !=0 else None
-                data_ = data_.loc[data_['text'].str.len() < self.limit, :] if data_ is not None and  len(data_) !=0 else None
+                data_ = data_.loc[data_['texts'] !='',:] if data_ is not None and  len(data_) !=0 else None
+                data_ = data_.loc[data_['texts'].str.len() < self.limit, :] if data_ is not None and  len(data_) !=0 else None
                 if data_ is not None :
                     print(f" data_.shape :{ data_.shape}")
 
