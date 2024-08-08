@@ -1,26 +1,11 @@
-
-import logging
-
-# Configure the module-level logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-# Create a file handler
-file_handler = logging.FileHandler('googletranslator.log')
-file_handler.setLevel(logging.INFO)
-
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-formatter = logging.Formatter('%(asctime)s  [%(levelname)s] -- [%(funcName)s()] : %(message)s')
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
-
 import numpy as np
 import pandas as pd
 import sys
 from google.cloud import translate
+sys.path.append("/home/jupyter/news/src")
+from utils import split_liste, create_logger
 
-
+logger = create_logger(__name__, 'googletranslator.log')
 
 class GoogleTranslate :
     """
@@ -37,14 +22,16 @@ class GoogleTranslate :
     --------
         __init__(self, project_id: str, location: str = "global", target_language_code: str = "en"):
             Initializes the GoogleTranslate class with the given project ID, location, and target language code.
+            
         __validate_target_language_code(self, language_code: str) -> bool:
             Validates the target language code to ensure it is a non-null string of length 2.
+            
         __translate_text(self, texts: list[list[str]], source_language_code: str) -> list[str]:
             Translates the provided texts from the source language to the target language.
-        __split_liste(self, texts: list[str], limit: int) -> list[list[str]]:
-            Splits a list of texts into sub-lists based on a token limit.
+    
         translation(self, dataframe: pd.DataFrame, limit: int = 30720) -> pd.DataFrame:
             Translates the 'title' and 'text' columns of a given DataFrame from the source language to the target language.
+            
         fails_index(self) -> list[int]:
             Returns the list of indices where translation failed.
         """
@@ -130,47 +117,6 @@ class GoogleTranslate :
         
         logger.info("Texts successfully translated.")
         return responses
-
-    def __split_liste(self, texts : list[str], limit : int )-> list[list[str]]:
-        """
-        Splits a list of texts into sub-lists based on a token limit.
-
-        Args:
-            texts (list[str]): The texts to split.
-            limit (int): The token limit.
-
-        Returns:
-            list[list[str]]: The split texts.
-
-        Raises:
-            ValueError: If a single text exceeds the token limit.
-        """
-        logger.info("Splitting texts into sub-lists with a limit of %d tokens", limit)
-        
-        sub_list = []
-        liste = []
-        cpt = 0
-        for text in texts :
-            length_text = len(text)
-
-            if length_text > limit :
-                logger.error(f"The text has {length_text} tokens, which exceeds the limit of {limit} tokens")
-                raise ValueError(f"the text have {length_text} tokens which exceed the limited tokens number to translate")
-
-            else :
-                cpt += length_text
-
-                if cpt < limit:
-                    sub_list.append(text)
-
-                else :
-                    liste.append(sub_list)
-                    cpt, sub_list = length_text, []
-                    sub_list.append(text)
-
-        liste.append(sub_list)
-        logger.info("Texts successfully split into sub-lists.")
-        return liste
     
     def translation(self, dataframe : pd.DataFrame, limit : int =30720):
         """
@@ -213,7 +159,7 @@ class GoogleTranslate :
             logger.info(f" data_.shape :{ data_.shape}")
             
             # Translating title
-            sub1 = self.__split_liste(list(data_['title']), limit=limit)
+            sub1 = split_liste(list(data_['title']), limit=limit)
             try :
                 titles = self.__translate_text(texts =sub1, source_language_code=lang)
                 data_['translated_title'] = titles
@@ -223,7 +169,7 @@ class GoogleTranslate :
                 continue
 
             ## Translating text
-            sub = self.__split_liste(list(data_['text']), limit=limit)
+            sub = split_liste(list(data_['text']), limit=limit)
             try :
                 texts =self.__translate_text(texts =sub, source_language_code=lang)
                 data_['translated_text'] = texts
