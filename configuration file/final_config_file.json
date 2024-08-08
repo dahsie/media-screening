@@ -1,0 +1,63 @@
+{
+    "keywords": [
+        "strike",
+        "picket line",
+        "employee protest"
+    ],
+    "country_lang": [
+        {
+            "country": "BE",
+            "lang": "fr",
+            "queries": [
+                "gr\u00e8ve",
+                "piquet de gr\u00e8ve",
+                "protestation des employ\u00e9s"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "fr",
+            "queries": [
+                "gr\u00e8ve",
+                "piquet de gr\u00e8ve",
+                "protestation des employ\u00e9s"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "de",
+            "queries": [
+                "schlagen",
+                "Streikposten",
+                "Mitarbeiterprotest"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "it",
+            "queries": [
+                "sciopero",
+                "picchetto",
+                "protesta dei dipendenti"
+            ]
+        },
+        {
+            "country": "BG",
+            "lang": "bg",
+            "queries": [
+                "\u0441\u0442\u0430\u0447\u043a\u0430",
+                "\u043f\u0438\u043a\u0435\u0442 \u043b\u0438\u043d\u0438\u044f",
+                "\u043f\u0440\u043e\u0442\u0435\u0441\u0442 \u043d\u0430 \u0441\u043b\u0443\u0436\u0438\u0442\u0435\u043b"
+            ]
+        }
+    ],
+    "news_api_key": "News API KEY to add if you use news api",
+    "rag_cong": {
+        "vertexai_llm": "gemini-1.5-flash",
+        "vertexai_embedding_name": "text-embedding-004",
+        "chunk_size": 2000,
+        "chunk_overlap": 10,
+        "max_doc": 5,
+        "retry": 1
+    }
+}
