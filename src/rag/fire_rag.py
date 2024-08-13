@@ -1,6 +1,7 @@
 from base_retrieval import *
 from output_parsers import *
-
+import fire_rag_prompts
+import fire_rag_questions
 class FireRAG(RetrivalBase):
     
     """
@@ -29,48 +30,11 @@ class FireRAG(RetrivalBase):
         retrieve_infos(dataframe: pd.DataFrame):
             Retrieves and processes information from the given DataFrame with multiple queries and parses the results.
     """
-    
-    auto_parser = JsonOutputParser(pydantic_object= AutomotiveSector)
-    parser_business_sectors = JsonOutputParser(pydantic_object=BusinessSectors)
-    parser_companies_names = JsonOutputParser(pydantic_object=Company)
-    fire_plant_parser = JsonOutputParser(pydantic_object=FirePlant)
-    
-    prompt1 = PromptTemplate(
-    template="""Your task is to identify the officially named companies that are experiencing fire at factory happened in their factory. Answer this query : "{query}" base on the following context : "{context}".
-    Make sure to avoid using variations of names mentioned in the context.Use the exact name of the company as it appears in official documents or reputable sources. 
-    For instance, if you know that a particular company goes by its full legal name, use that instead of abbreviations or nicknames. If there isn't a specific company mentioned in the context that is undergoing a fire at it plant, your response should be 'None'. 
-    Additionally, please provide the city and country of the compay undergoing the fire. Present your answer in JSON format as the following instructions format following instructions format : {format_instructions}.""",
-    input_variables=["query", "context"],
-    partial_variables={"format_instructions": parser_companies_names.get_format_instructions()},
-    )
 
-    prompt2  = PromptTemplate(
-        template="""You are an expert in finding the main sectors of the following comapny : "{company2}". Answer the following query : "{query2}".
-        base on the following context :  "{context2}". The output must be at all cost in json format as the following instructions format : {format_instructions}.""",
-        input_variables=["query2", "company2","context2"],
-        partial_variables={"format_instructions": parser_business_sectors.get_format_instructions()},
-    )
-
-    prompt3 = PromptTemplate(
-        template="""You are an expert in analyzing if any sectors related to car making industry will be affected by the fire at "{company}" factory. Answer the following query : "{query}" base on the following context :  "{context}" . 
-        The output must be at all cost in json format as the following instructions format : {format_instructions}.""",
-        input_variables=["query", "company","context"],
-        partial_variables={"format_instructions": auto_parser.get_format_instructions()},
-    )
-
-    
-    prompt5 = PromptTemplate(
-    template="""You are an expert in analyzing the fire  at "{company5}". Answer yes or no if this fire concerning a manufacturing company. Answer this query : "{query5}" base on the following context :  "{context5}" . 
-    The output must be at all cost in json format as the following instructions format following instructions format : {format_instructions}.""",
-    input_variables=["query5", "company5","context5"],
-    partial_variables={"format_instructions": fire_plant_parser.get_format_instructions()},
-    )
-    
-
-    keys_order = ['fire_plant', 'impacted_company','locations', 'impacted_business_sectors', 'automotive_industry', 'temporality','description', 'sources']
+    keys_order = ['fire_plant', 'impacted_company','locations', 'impacted_business_sectors', 'automotive_industry','description', 'sources']
     
     def __init__(self, vertexai_llm='gemini-1.5-flash',
-                 vertexai_embedding_name = 'textembedding-gecko@003',
+                 vertexai_embedding_name ='text-embedding-004',
                  retry :int= 2, max_doc : int = 5, chunk_size: int = 3000, chunk_overlap: int = 10):
         """
         Initializes the FireRAG instance with the specified parameters and sets up necessary prompts and chains.
@@ -88,19 +52,26 @@ class FireRAG(RetrivalBase):
                  vertexai_embedding_name = vertexai_embedding_name,
                  retry = retry, max_doc = max_doc ,chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         
+        #Prompts
+        self.prompt1, self.prompt2, self.prompts3, self.prompt5 = fire_rag_prompts.prompt1, fire_rag_prompts.prompt2, fire_rag_prompts.prompt3, fire_rag_prompts.prompt5
+        
+        #Output parsers 
+        self.auto_parser = JsonOutputParser(pydantic_object= AutomotiveSector)
+        self.parser_business_sectors = JsonOutputParser(pydantic_object=BusinessSectors)
+        self.parser_companies_names = JsonOutputParser(pydantic_object=Company)
+        self.fire_plant_parser = JsonOutputParser(pydantic_object=FirePlant)
+        
+        #Chains
         self.__chain1 = (self.prompt1 | self.llm)
         self.__chain3 = (self.prompt3 | self.llm)
         self.__paralle_chain = RunnableParallel(response2=(self.prompt2 | self.llm), response5 = (self.prompt5 | self.llm))
         
         self.__paralle_retrieve = RunnableParallel(context2 = RunnableLambda(lambda input_dict: self._retrieve(input_dict['query2'])),
                                                 context5 = RunnableLambda(lambda input_dict: self._retrieve(input_dict['query5'])) )
-        
         self._retriever = None
         
-        self.__query1 = "What is the primary company affected by the recent fire at its factory? Please provide at most one company that is directly impacted."
-        self.__query2 = "In which sectors does '{company}' operate, and how are they impacted by the fire at its factory? Please provide the top 2 sectors."
-        self.__query3 = """Given that the main sectors of "{company}" are :  "{business_sectors}",   is the car maker industry concerned by the fire at its factory? (yes/no). Think step by step if the product of "{company}" can be use in car making before answering.""" 
-        self.__query5 = "Answer 'yes' or 'no' if '{company}' has really undergone a fire or explosion on its premises."
+        # Questions
+        self.__query1, self.__query2, self.__query3, self.__query5 = fire_rag_questions.query1, fire_rag_questions.query2, fire_rag_questions.query3, fire_rag_questions.query5
         
     def retrieve_infos(self, dataframe) :
         """

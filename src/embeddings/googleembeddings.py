@@ -124,10 +124,15 @@ class GoogleEmbeddings :
         """
         list_of_texts = split_liste(sentences,limit = limit, separators=separators)
         texts = np.empty((0, self.__dimensionality))
+       
+        long = sum([len(texts_) for texts_ in list_of_texts])
+        print(long)
         for texts_ in list_of_texts :
-            texts = np.concatenate([texts, np.array(self.embed_text(texts_))])
+            embeddings_ =  np.array(self.embed_text(texts_))
+            texts = np.concatenate([texts, embeddings_])
             
         self.__embedded_data = texts
+        print(len(texts))
         logger.info("Successfully embedded the dataframe")
     
    

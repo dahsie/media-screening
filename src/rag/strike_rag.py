@@ -1,6 +1,7 @@
 from base_retrieval import *
 from output_parsers import *
-
+import strike_rag_prompts
+import strike_rag_questions
 class StrikeRAG(RetrivalBase):
     """
     StrikeRAG is a class designed to identify and analyze strikes in the automotive industry using a Retrieval-Augmented Generation (RAG) approach. It extends the RetrievalBase class and leverages various prompt templates and parsers to gather and interpret information related to labor strikes affecting companies, business sectors, and the automotive industry.
@@ -27,78 +28,42 @@ class StrikeRAG(RetrivalBase):
         retrieve_infos(dataframe):
             Retrieves and processes information about strikes from a given dataframe.
     """
-    auto_parser = JsonOutputParser(pydantic_object = AutomotiveSector)
-    parser_business_sectors = JsonOutputParser(pydantic_object = BusinessSectors)
-    parser_companies_names = JsonOutputParser(pydantic_object = Company)
-    tmp_parser = JsonOutputParser(pydantic_object = Temporality)
-    labor_strike_parser = JsonOutputParser(pydantic_object = LaborStrike)
-    
-    prompt1 = PromptTemplate(
-    template="""Your task is to identify the officially named companies that are experiencing strikes instigated by their own workforce based on given context. Answer this query : "{query}" base on the following context : "{context}".
-    Make sure to avoid using variations of names mentioned in the context.Use the exact name of the company as it appears in official documents or reputable sources. 
-    For instance, if you know that a particular company goes by its full legal name, use that instead of abbreviations or nicknames. If there isn't a specific company mentioned in the context that is undergoing a strike, your response should be 'None'. 
-    Additionally, please provide the city and country where the strike is occurring, taking place, or expected to happen. Present your answer in JSON format as the following instructions format following instructions format : {format_instructions}.""",
-    input_variables=["query", "context"],
-    partial_variables={"format_instructions": parser_companies_names.get_format_instructions()},
-    )
-
-    prompt2  = PromptTemplate(
-        template="""You are an expert in finding the main sectors of a given company. Answer the following query : {query2}
-        base on the following context :  {context2}. The output must be at all cost in json format as the following instructions format : {format_instructions}.""",
-        input_variables=["query2", "context4"],
-        partial_variables={"format_instructions": parser_business_sectors.get_format_instructions()},
-    )
-
-    prompt3 = PromptTemplate(
-        template="""You are an expert in analyzing if any sectors related to car making industry will be affected by a strike. Answer the following query : {query} base on the following context :  {context} . 
-        Your role is to analyse and then answer if a given strike will affected any car making industry. The output must be at all cost in json format as the following instructions format : {format_instructions}.""",
-        input_variables=["query", "context"],
-        partial_variables={"format_instructions": auto_parser.get_format_instructions()},
-    )
-
-    prompt4 = PromptTemplate(
-        template=""" You are an expert in analyzing dates related to a given strike. Answer the following query : {query4} base on the following context :  {context4} . 
-             Your role is to analyse and then say if a strike is ended, ongoing, upcoming. The output must be at all cost in json format as the following instructions format : {format_instructions}. 
-             answer 'unknow' if the analysis does not allows you to give an response among 'end', 'ongoing', 'upcoming', 'avoided' or 'unknown'.""",
-        input_variables=["query4", "context4"],
-        partial_variables={"format_instructions": tmp_parser.get_format_instructions()},
-    )
-    
-    prompt5 = PromptTemplate(
-    template="""You are an expert in analyzing strike concerning a given company. Your role is to answer yes or no if a given strike concerning a company is a labor strike or not. Answer this query : {query5} base on the following context :  {context5} . 
-    The output must be at all cost in json format as the following instructions format following instructions format : {format_instructions}.""",
-    input_variables=["query5", "context5"],
-    partial_variables={"format_instructions": labor_strike_parser.get_format_instructions()},
-    )
-    
     
     keys_order = ['strike', 'impacted_company','locations', 'impacted_business_sectors','automotive_industry', 'temporality','description', 'sources']
     
     
     def __init__(self, vertexai_llm='gemini-1.5-flash',
-                 vertexai_embedding_name = 'textembedding-gecko@003',
+                 vertexai_embedding_name = 'text-embedding-004',
                  retry :int= 2, max_doc : int = 5, chunk_size = 2000,chunk_overlap=10):
         
         super(StrikeRAG, self).__init__(vertexai_llm=vertexai_llm,
                 vertexai_embedding_name = vertexai_embedding_name,
                 retry = retry, max_doc = max_doc, chunk_size = chunk_size, chunk_overlap=chunk_overlap)
+        #Prompts
+        self.prompt1, self.prompt2, self.prompt3 = strike_rag_prompts.prompt1, strike_rag_prompts.prompt2, strike_rag_prompts.prompt3
+        self.prompt4, self.prompt5 =  strike_rag_prompts.prompt4, strike_rag_prompts.prompt5
         
+        #output parsers
+        self.auto_parser = JsonOutputParser(pydantic_object = AutomotiveSector)
+        self.parser_business_sectors = JsonOutputParser(pydantic_object = BusinessSectors)
+        self.parser_companies_names = JsonOutputParser(pydantic_object = Company)
+        self.tmp_parser = JsonOutputParser(pydantic_object = Temporality)
+        self.labor_strike_parser = JsonOutputParser(pydantic_object = LaborStrike)
+        
+        #Chains 
         self.__chain1 = (self.prompt1 | self.llm)
         self.__chain3 = (self.prompt3 | self.llm)
-        
         self.__paralle_chain = RunnableParallel(response2= (self.prompt2 | self.llm) ,response4 = (self.prompt4 | self.llm), response5 = (self.prompt5 | self.llm) )
         
+        # Retrivers
         self.__paralle_retrieve = RunnableParallel(context2 = RunnableLambda(lambda input_dict: self._retrieve(input_dict['query2'])),
                                                 context4 = RunnableLambda(lambda input_dict: self._retrieve(input_dict['query4'])),
                                                 context5 = RunnableLambda(lambda input_dict: self._retrieve(input_dict['query5'])) )
-        
         self._retriever = None
         
-        self.__query1 = "What is the primary company affected by the recent auto industry strike? Please provide at most one company that is directly impacted."
-        self.__query2 = "In which sectors does '{company}' operate, and how are they impacted by the strike? Please provide the top 2 sectors."
-        self.__query3 = """Given that the main sectors of '{company}' are :  '{business_sectors}',   is the car makering industry concerned by the strike? (yes/no). Think step by step if the product of {company} can be use in car making before answering."""
-        self.__query4 = "What is the current status of the strike at '{company}'? Is it 'ended', 'ongoing', 'upcoming', 'avoided' or 'unknown'?"
-        self.__query5 = "Answer yes or no if the '{company}' strike  is a labor strike. "
+        #Questions
+        self.__query1 , self.__query2, self.__query3 = strike_rag_questions.query1, strike_rag_questions.query2, strike_rag_questions.query3
+        self.__query4, self.__query5 = strike_rag_questions.query4, strike_rag_questions.query5
         
     def retrieve_infos(self, dataframe) :
         """
