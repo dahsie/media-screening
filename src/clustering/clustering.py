@@ -2,7 +2,7 @@ import logging
 import sys
 import os
 
-sys.path.append("/home/jupyter/news/src")
+sys.path.append("../src/utils/")
 from utils import create_logger
 logger = create_logger(__name__, "clustering.log")
 

@@ -9,7 +9,7 @@ from newspaper import  Article
 from tqdm import tqdm
 
 import sys
-sys.path.append("/home/jupyter/news/src")
+sys.path.append("../src/utils")
 
 from utils import create_logger
 
@@ -171,8 +171,8 @@ class NewsApiScraper(Scraper) :
             None
         """
         response = self.search()
-        self.pages = math.ceil(response['totalResults']/100)
-        self.total_results = response['totalResults']
+        self.pages = math.ceil(response['totalResults']/100) if 'totalResults' in response.keys() else 0
+        self.total_results = response['totalResults'] if 'totalResults' in response.keys() else 0
         logger.info(f'Pagination set: {self.pages} pages, Total results: {self.total_results}')
     
     def process_article(self,article, **kwargs):

@@ -1,7 +1,7 @@
 
 
 import sys
-sys.path.append("/home/jupyter/news/src")
+sys.path.append("../src/utils/")
 
 from utils import create_logger
 
