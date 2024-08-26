@@ -106,7 +106,7 @@ class NewsApiScraper(Scraper) :
             timeout (float): Timeout duration for HTTP requests.
         """
         super(NewsApiScraper, self).__init__(save_path = save_path, end_date = end_date, ecart = ecart,
-                        start_date = start_date, user_agent =None, query = query, timeout = timeout,
+                        start_date = start_date, query = query, timeout = timeout,
                          country = country,lang = lang)
         self._api_key = api_key
         self._url = None
