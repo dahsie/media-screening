@@ -8,3 +8,8 @@ Modify date parser within ./pygooglenews/pygooglenews/__init__.py :
   add a new function within the file : 
     def parse_date(date_string : str):
         return datetime.strptime(date_string, '%Y-%m-%d')
+
+## Install media-screening
+git clone git --branch test --single-branch https://github.com/dahsie/media-screening.git
+
+
