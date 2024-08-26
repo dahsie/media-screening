@@ -133,7 +133,7 @@ class GoogleTranslate :
             ValueError: If the DataFrame does not contain the required columns.
         """
         
-        required_columns = {'title', 'text', 'lang'}
+        required_columns = {'titles', 'texts', 'lang'}
         # Check if the DataFrame contains the required columns
         if not required_columns.issubset(dataframe.columns):
             missing_columns = required_columns - set(dataframe.columns)
@@ -150,9 +150,9 @@ class GoogleTranslate :
 
             data_ = remain_dataframe.loc[remain_dataframe['lang'] == lang, :]
 
-            data_ = data_.loc[data_['title'] !='',:] if data_ is not None and len(data_) !=0  else None
-            data_ = data_.loc[data_['text'] !='',:] if data_ is not None and  len(data_) !=0 else None
-            data_ = data_.loc[data_['text'].str.len() < limit, :] if data_ is not None and  len(data_) !=0 else None
+            data_ = data_.loc[data_['titles'] !='',:] if data_ is not None and len(data_) !=0  else None
+            data_ = data_.loc[data_['texts'] !='',:] if data_ is not None and  len(data_) !=0 else None
+            data_ = data_.loc[data_['texts'].str.len() < limit, :] if data_ is not None and  len(data_) !=0 else None
             
             if data_ is None or len(data_) == 0:
                 continue
@@ -169,7 +169,7 @@ class GoogleTranslate :
                 continue
 
             ## Translating text
-            sub = split_liste(list(data_['text']), limit=limit)
+            sub = split_liste(list(data_['texts']), limit=limit)
             try :
                 texts =self.__translate_text(texts =sub, source_language_code=lang)
                 data_['translated_text'] = texts
