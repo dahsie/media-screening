@@ -222,34 +222,26 @@ def generate(articles : list[list[str]], max_output_tokens=70):
 
     return results    
 
-def final_processing(json_data : list[dict], dataframe : pd.DataFrame, max_output_tokens = 100, col_to_summarize: str= 'translated_text') :
-    """
-    Processes relevant articles to generate summaries and updates locations with geocoding.
 
-    args:
-    -----
-    json_data : list[dict]
-        A list of dictionaries containing article data.
-    dataframe : pd.DataFrame
-        A DataFrame containing additional article details, including translated text.
-    max_output_tokens : int, optional
-        The maximum number of tokens for the generated summary, by default 100.
+def generate_description(json_data : list[dict], dataframe : pd.DataFrame, max_output_tokens = 100, col_to_summarize: str= 'translated_text') :
+    """
+    Generates descriptions for articles marked as relevant in the JSON data by summarizing the texts associated with their corresponding URLs in a DataFrame.
+
+    Args:
+        json_data (list[dict]): A list of dictionaries representing the JSON data, where each dictionary contains information about articles, including their relevance.
+        dataframe (pd.DataFrame): A Pandas DataFrame containing articles, where each row represents an article and each column contains information about the article.
+        max_output_tokens (int, optional): The maximum number of tokens to use for generating the summary. Default is 100 tokens.
+        col_to_summarize (str, optional): The name of the DataFrame column to summarize for relevant articles. Default is 'translated_text'.
 
     Returns:
-    --------
-    list[dict]
-        A list of dictionaries with processed articles, including generated summaries and updated geolocation data.
+        list[dict]: The updated JSON data with descriptions added for relevant articles.
     """
     relevant = []
     irrelevant = []
     
-    geolocator = Nominatim(user_agent='Dah')
     
-    print(f" len(json_data) : { len(json_data)}")
     for index, item in enumerate(json_data) :
-        print(index)
         urls = []
-        # print(item['relevant'])
         if item['relevant'] == 'yes':
             print('yes')
             urls += item['sources']
@@ -264,13 +256,6 @@ def final_processing(json_data : list[dict], dataframe : pd.DataFrame, max_outpu
             result = generate(splits, max_output_tokens=max_output_tokens)
             
             item['description'] = result
-            
-            # for location in item['locations']:
-            #     if isinstance(location, dict) and location['city'] !='':
-            #         loc = geolocator.geocode(location['city'])
-            #         if loc is None or loc == '':
-            #             continue
-            #         location['latitude'], location['longitude'] = loc.latitude, loc.longitude
                     
             relevant.append(item)
             
@@ -279,3 +264,28 @@ def final_processing(json_data : list[dict], dataframe : pd.DataFrame, max_outpu
     results = relevant + irrelevant  
     
     return results
+
+def geoloc(json_data : list[dict]) :
+    """
+    Adds geographical coordinates (latitude and longitude) to locations in relevant articles in the JSON data.
+
+    Args:
+        json_data (list[dict]): A list of dictionaries representing the JSON data, where each dictionary contains information about articles, including locations.
+
+    Returns:
+        list[dict]: The updated JSON data with geographical coordinates added to locations in relevant articles.
+    """
+    geolocator = Nominatim(user_agent='Entreprise')
+    
+    for index, item in enumerate(json_data) :
+        
+        if item['relevant'] == 'yes':
+            # print(item)
+            for index2, location in  enumerate(item['locations']):
+                if isinstance(location, dict) and location['city'] !='':
+                    loc = geolocator.geocode(location['city'])
+                    if loc is None or loc == '':
+                        continue
+                    json_data[index]['locations'][index2]['latitude'] = loc.latitude
+                    json_data[index]['locations'][index2]['longitude'] = loc.longitude         
+    return json_data
