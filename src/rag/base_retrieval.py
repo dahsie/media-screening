@@ -250,7 +250,7 @@ class RetrivalBase(ABC):
             self.all_results += self.results
             
         self.__postprocessing()
-        self.all_results = [item for index, item in enumerate(self.all_results) if index not in self.pop_index]
+        # self.all_results = [item for index, item in enumerate(self.all_results) if index not in self.pop_index]
         
         
     @abstractmethod
