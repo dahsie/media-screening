@@ -4,3 +4,4 @@ git_token.txt
 *__pycache__*
 pygooglenews/*
 *pygooglenews/*
+pygooglenews/
