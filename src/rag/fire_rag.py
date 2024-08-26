@@ -1,3 +1,13 @@
+
+import sys
+import os
+
+
+sys.path.append("../src/outpout_parsers")
+sys.path.append("../src/prompts")
+sys.path.append("../src/questions")
+
+
 from base_retrieval import *
 from output_parsers import *
 import fire_rag_prompts
@@ -53,7 +63,7 @@ class FireRAG(RetrivalBase):
                  retry = retry, max_doc = max_doc ,chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         
         #Prompts
-        self.prompt1, self.prompt2, self.prompts3, self.prompt5 = fire_rag_prompts.prompt1, fire_rag_prompts.prompt2, fire_rag_prompts.prompt3, fire_rag_prompts.prompt5
+        self.prompt1, self.prompt2, self.prompt3, self.prompt5 = fire_rag_prompts.prompt1, fire_rag_prompts.prompt2, fire_rag_prompts.prompt3, fire_rag_prompts.prompt5
         
         #Output parsers 
         self.auto_parser = JsonOutputParser(pydantic_object= AutomotiveSector)
