@@ -12,7 +12,7 @@ from newspaper import  Article, Config
 
 
 from tqdm import tqdm
-from pygooglenews import GoogleNews
+from __init__ import GoogleNews
 
 import selenium
 from selenium import webdriver #Webdriver de Selenium qui permet de contrôler un navigateur
