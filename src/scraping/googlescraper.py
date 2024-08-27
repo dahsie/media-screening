@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/jupyter/pygooglenews/pygooglenews")
+sys.path.append("../src/pygooglenews")
 sys.path.append("../src/utils")
 
 from scraper import *
@@ -14,7 +14,7 @@ from newspaper import  Article, Config
 
 
 from tqdm import tqdm
-from __init__ import GoogleNews
+from pygooglenews import GoogleNews
 
 import selenium
 from selenium import webdriver #Webdriver de Selenium qui permet de contrôler un navigateur
