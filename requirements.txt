@@ -16,7 +16,6 @@ selenium
 google-cloud-translate
 google-cloud-bigquery
 sentence-transformers
-vertexai
 geonamescache
 faiss-cpu==1.8.0
 
