@@ -159,7 +159,8 @@ class GoogleTranslate :
             logger.info(f" data_.shape :{ data_.shape}")
             
             # Translating title
-            sub1 = split_liste(list(data_['title']), limit=limit)
+
+            sub1 = split_liste(list(data_['titles']), limit=limit)
             try :
                 titles = self.__translate_text(texts =sub1, source_language_code=lang)
                 data_['translated_title'] = titles

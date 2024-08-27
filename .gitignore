@@ -1,4 +1,4 @@
-# ignoring all log files
 *.log
 git_token.txt
-.ipynb_checkpoints/
+*.ipynb_checkpoints/
+*__pycache__*

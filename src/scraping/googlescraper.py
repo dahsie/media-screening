@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../src/pygooglenews")
+sys.path.append("../src/utils")
 
 from scraper import *
 
@@ -5,8 +8,10 @@ from scraper import *
 import requests
 import re
 import math
+import time 
 
 from newspaper import  Article, Config
+
 
 from tqdm import tqdm
 from pygooglenews import GoogleNews
@@ -14,6 +19,12 @@ from pygooglenews import GoogleNews
 import selenium
 from selenium import webdriver #Webdriver de Selenium qui permet de contrôler un navigateur
 from selenium.webdriver.common.by import By 
+
+
+from utils import create_logger
+
+logger = create_logger(__name__, 'google_scrapper.log')
+
 
 class GoogleScraper(Scraper) :
     
@@ -55,6 +66,7 @@ class GoogleScraper(Scraper) :
         self.when = when
         self._true_link = true_link
         self.selector =".VtwTSb > form:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1) > span:nth-child(4)"
+        self.__first_scraping = True # Allow to know if GoogleScraper object is being used for the first time
 
     @Scraper.country.setter
     def country(self, country):
@@ -172,121 +184,123 @@ class GoogleScraper(Scraper) :
         else :
             return self.gn.top_news()
     
-    def process_article(self,article, links, dates, times, titles):
+    
+    def process_article(self,article, **kwargs):
         """
-        Processes an individual article and appends relevant information to the lists.
+        Processes an individual article and appends relevant information to the lists contained
+        in the kwargs dictionary. Raises a ValueError if one or more required lists are missing.
 
         Args:
-            article (dict): The article data obtained from the Google News API.
-            links (list): List to store article URLs.
-            dates (list): List to store article publication dates.
-            times (list): List to store article publication times.
-            titles (list): List to store article titles.
+            article (dict): The article data obtained from the API.
+            **kwargs: A dictionary containing lists to store article information:
+                - 'links' (list): List to store article URLs.
+                - 'dates' (list): List to store article publication dates.
+                - 'titles' (list): List to store article titles.
+                
+        Raises:
+            ValueError: If one or more required lists are missing from kwargs.
         """
+        expected_keys = {'links', 'dates', 'titles'}
+        if not expected_keys.issubset(kwargs.keys()):
+            logger.error("Missing one or more required lists in kwargs.")
+            raise ValueError("Missing one or more required lists in kwargs")
         
-        if article['link'] not in links and article['link'] not in self.URLS:
-            url = article['link']
-            if self._true_link:
-                url = requests.head(url, allow_redirects=True).url
-    
-            self.URLS.append(url)
-            titles.append(article['title'])
-            links.append(url)
-            dates.append(f"{article['published_parsed'].tm_year}-{article['published_parsed'].tm_mon:02d}-{article['published_parsed'].tm_mday:02d}")
-            times.append( f"{article['published_parsed'].tm_hour:02d}:{article['published_parsed'].tm_min:02d}:{article['published_parsed'].tm_sec:02d}")
+        if article['link'] not in kwargs['links'] and article['link'] not in self.URLS:
+            self.URLS.append(article['link'])
+            kwargs['links'].append(article['link'])
+            kwargs['titles'].append(article['title'])
+            kwargs['dates'].append(time.strftime('%Y-%m-%dT%H:%M:%SZ', article['published_parsed']))
             
-    def fetch_articles(self) :
-        """
-        Fetches and processes articles from Google News.
-
-        This method calls the `google_search` method to obtain articles and processes each
-        article. It updates the lists of links, dates, times, and titles with the processed data.
-
-        """
-        sources = set()
-        articles, dates, times, links, titles = [],[],[],[],[]
-        json_data = self.search()
-        for article in json_data['entries'] :
-            sources.add(article['source'])
-            self.process_article(article, links, dates, times, titles)
-            if len(article['sub_articles']) != 0:
-                for sub_article in article['sub_articles']:
-                    self.process_article(sub_article, links, dates, times, titles)
-        self.links, self.dates, self.times, self.titles = links, dates, times, titles
-        self.sources = list(sources)
-        print("Google search ended !")
     
-    def scrapping(self,links, dates, times, titles, verbose = False):
+    def fetch_articles(self) -> None:
         """
-        This method processes a list of news article URLs and extracts relevant information from each article using a WebDriver.
-
-        Args:
-            links (list of str): A list of URLs to news articles that need to be processed.
-            dates (list of str): A list of publication dates corresponding to the URLs.
-            times (list of str): A list of publication times corresponding to the URLs.
-            titles (list of str): A list of titles corresponding to the URLs.
-            download (bool, optional): Flag indicating whether to download the articles. Default is False.
-            google (bool, optional): Flag indicating whether the articles are from Google News. Default is False.
-            verbose (bool, optional): Flag to control the verbosity of the method's output. Default is False.
+        Fetches and processes articles by updating the lists
+        of links, dates and titles with the processed data.
 
         Returns:
-            list of dict: A list of dictionaries where each dictionary contains the following keys:
-                - "date" (str): The publication date of the article in 'YYYY-MM-DD' format.
-                - "time" (str): The publication time of the article in 'HH:MM:SS' format.
-                - "title" (str): The title of the article.
-                - "text" (str): The main content of the article.
-                - "url" (str): The URL of the article.
+            None
+        """
+        
+        sources = set()
+        kwargs = {
+            "dates" : [],
+            "titles" : [],
+            "links" : []
+        }
 
-        Note:
-            This method uses a WebDriver to navigate to each URL and extract article content. It handles cookies acceptance and waits for the page to load.
-            If an exception occurs while processing an article, the error is silently ignored.
-            The `verbose` parameter can be used to enable detailed logging of the process.
+        json_data = self.search()
+
+        for article in json_data['entries'] :
+            sources.add(article['source'])
+            self.process_article(article=article, **kwargs)
+            
+            if len(article['sub_articles']) != 0:
+                for sub_article in article['sub_articles']:
+                    self.process_article(article=sub_article, **kwargs)
+
+        self.articles = kwargs
+        self.sources = list(sources)
+        print("search ended !")
+    
+    
+    def scrapping(self, **kwargs):
+        """
+        Downloads and extracts text content from the article links.
+
+        Args:
+            **kwargs: A dictionary containing lists to store article information:
+                -links (list): List of article URLs.
+                -dates (list): List of article publication dates.
+                -times (list): List of article publication times.
+                -titles (list): List of article titles.
+
+        Returns:
+            dict: A dictionary containing the articles with their extracted text.
         """
         
         article = Article("//")
-        papers = []
-        for i, link in tqdm(enumerate(links)):
-
+        texts = []
+        true_links = []
+        fails_index = []
+        for i, link in enumerate(tqdm(kwargs["links"])):
+            
             try :
                 self.driver.get(link)
 
-                if i == 0:
+                if self.__first_scraping:
                     sleep(1)
                     self.driver.find_element(By.CSS_SELECTOR, self.selector).click() # accept cookies
+                    self.__first_scraping = False
                 
                 sleep(1)
 
                 article.download(input_html = self.driver.page_source )
                 article.parse()
-
-                papers.append({
-                    "date" : dates[i],
-                    "time" : times[i],
-                    "title" : titles[i],
-                    "text" : article.text,
-                    "url" : self.driver.current_url,
-                })
-            except Exception as e :
-                pass
-        return papers
+                
+                texts.append(article.text)
+                true_links.append(self.driver.current_url)
+                
+            except Exception as e : # If exception it means that we do not get the text correctly the index will be kept so that some processing will be made on them
+                fails_index.append(i)
+        
+        for index in fails_index : # Deleting the failing index titles and dates so that 'texts' will match them (texts, articles["dates"], articles["titles"] must have the same length
+            self.articles['dates'].pop(index)
+            self.articles['titles'].pop(index)
+        
+        self.articles['texts']  = texts
+        self.articles['links'] = true_links
     
     def news_collection(self):
         """
-        Collects news articles by first fetching article metadata (links, dates, etc.) and then scraping each article for its full content.
+        Collects news articles, processes them, and optionally saves them.
 
-        This method first calls `fetch_articles` to obtain a list of articles based on the current search parameters.
-        It then uses the `scrapping` method to process the articles and extract their content. The resulting list of
-        articles is passed to the parent class's `news_collection` method for further processing.
+        Fetches articles, extracts relevant information, and uses the parent class's
+        `news_collection` method to save the articles if a save path is provided.
 
-        Note:
-            This method assumes that the `fetch_articles` method has been defined and correctly populates the lists of links,
-            dates, times, and titles. It also assumes that `scrapping` method handles the actual content extraction from the URLs.
-
-        Calls:
-            - `self.fetch_articles()`: To fetch the article metadata.
-            - `self.scrapping(...)`: To extract the content from the article URLs.
-            - `super(GoogleScraper, self).news_collection(...)`: To call the parent class's `news_collection` method with the collected data.
+        Returns:
+            None
         """
         self.fetch_articles()
-        google_papers = self.scrapping(self.links, self.dates, self.times, self.titles, verbose = True)
-        super(GoogleScraper, self).news_collection(google_papers)
+        self.scrapping(**self.articles)
+        super(GoogleScraper, self).news_collection(self.articles)
+        logger.info("News collection completed.")

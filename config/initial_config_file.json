@@ -1,0 +1,100 @@
+{
+    "keywords": [
+        "strike",
+        "picket line",
+        "employee protest"
+    ],
+    "country_lang": [
+        {
+            "country": "BE",
+            "lang": [
+                "fr"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": [
+                "fr",
+                "de",
+                "it"
+            ]
+        },
+        {
+            "country": "BG",
+            "lang": [
+                "bg"
+            ]
+        },
+        {
+            "country": "BR",
+            "lang": [
+                "pt"
+            ]
+        }
+    ],
+    "NEWS_API_KEY": "b1dcacfbc49d4ac1a48db5f5652b11a2",
+    "rag_cong": {
+        "vertexai_llm": "gemini-1.5-flash",
+        "vertexai_embedding_name": "text-embedding-004",
+        "chunk_size": 2000,
+        "chunk_overlap": 10,
+        "max_doc": 5,
+        "retry": 1
+    },
+    "decision_function_args": {
+        "sectors_to_discard": [
+            "hospital",
+            "health",
+            "healthcare",
+            "medical",
+            "education",
+            "school",
+            "schools",
+            "media",
+            "pharmaceutical",
+            "pharmaceuticals",
+            "public transportation",
+            "public bus",
+            "railroad",
+            "railways",
+            "tourism",
+            "public service",
+            "public services",
+            "public administration",
+            "medical services",
+            "government",
+            "government service",
+            "public ddministration",
+            "waste management",
+            "social services",
+            "cleaning",
+            "cleaning services",
+            "public transport",
+            "infrastructure",
+            "food delivery",
+            "food",
+            "travel",
+            "hospitality",
+            "food",
+            "hunger",
+            "aviation",
+            "airport services",
+            "hospitality",
+            "postal and courier services",
+            "postal",
+            "courier services",
+            "airline industry",
+            "airline",
+            "shipping",
+            "logistics",
+            "maritime transport",
+            "logistics and transportation"
+        ],
+        "desirable_temporalities": [
+            "upcoming",
+            "ongoing",
+            "unknown"
+        ]
+    },
+    "project_id": "irn-67050-lab-65"
+}

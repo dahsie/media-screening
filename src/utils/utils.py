@@ -79,6 +79,7 @@ def split_liste(texts : list[str], limit : int , separators: list[str] = ['.', '
     liste = []
     cpt = 0
     for text in texts :
+
         length_text = len(text)
 
         if length_text > limit :
@@ -223,7 +224,8 @@ def generate(articles : list[list[str]], max_output_tokens=70):
     return results    
 
 
-def generate_description(json_data : list[dict], dataframe : pd.DataFrame, max_output_tokens = 100, col_to_summarize: str= 'translated_text') :
+def generate_description(json_data: list[dict], dataframe: pd.DataFrame, max_output_tokens: int = 100, col_to_summarize: str = 'translated_text') -> list[dict]:
+
     """
     Generates descriptions for articles marked as relevant in the JSON data by summarizing the texts associated with their corresponding URLs in a DataFrame.
 
@@ -238,9 +240,9 @@ def generate_description(json_data : list[dict], dataframe : pd.DataFrame, max_o
     """
     relevant = []
     irrelevant = []
-    
-    
-    for index, item in enumerate(json_data) :
+
+    for index, item in enumerate(json_data):
+        
         urls = []
         if item['relevant'] == 'yes':
             print('yes')
@@ -252,20 +254,22 @@ def generate_description(json_data : list[dict], dataframe : pd.DataFrame, max_o
             df = dataframe.loc[dataframe['url'].isin(urls), :]
 
             data_ = list(df[col_to_summarize])
-            splits = split_liste(data_, limit= 500000)
+
+            splits = split_liste(data_, limit=500000)
             result = generate(splits, max_output_tokens=max_output_tokens)
             
             item['description'] = result
                     
             relevant.append(item)
-            
-        else :
+
+        else:
             irrelevant.append(item)
-    results = relevant + irrelevant  
     
+    results = relevant + irrelevant  
     return results
 
-def geoloc(json_data : list[dict]) :
+
+def geoloc(json_data: list[dict]) -> list[dict]:
     """
     Adds geographical coordinates (latitude and longitude) to locations in relevant articles in the JSON data.
 
@@ -276,16 +280,15 @@ def geoloc(json_data : list[dict]) :
         list[dict]: The updated JSON data with geographical coordinates added to locations in relevant articles.
     """
     geolocator = Nominatim(user_agent='Entreprise')
-    
-    for index, item in enumerate(json_data) :
-        
+
+    for index, item in enumerate(json_data):
         if item['relevant'] == 'yes':
-            # print(item)
-            for index2, location in  enumerate(item['locations']):
-                if isinstance(location, dict) and location['city'] !='':
+            for index2, location in enumerate(item['locations']):
+                if isinstance(location, dict) and location['city'] != '':
                     loc = geolocator.geocode(location['city'])
                     if loc is None or loc == '':
                         continue
                     json_data[index]['locations'][index2]['latitude'] = loc.latitude
                     json_data[index]['locations'][index2]['longitude'] = loc.longitude         
+
     return json_data

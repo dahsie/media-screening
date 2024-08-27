@@ -7,7 +7,7 @@ class NewsCollector:
     A class to collect news articles using specified scrapers.
     """
 
-    def __init__(self, scraper: Union[GoogleScraper, NewsApiScraper], config :dict, path_to_save):
+    def __init__(self, scraper: Union[GoogleScraper, NewsApiScraper], config :dict, path_to_save = None):
         """Initialises the NewsCollector."""
         self.scraper = scraper
         self.news_config = config
@@ -19,8 +19,9 @@ class NewsCollector:
         """Collects news articles based on the provided configuration."""
         
         dataframe = None
+       
         for item in tqdm(self.news_config):
-            print(item)
+            # print(item)
             self.scraper.country = item['country']
             self.scraper.lang = item['lang']
             for query in item['queries']:
@@ -41,6 +42,13 @@ class NewsCollector:
                     continue
                     
                 dataframe = pd.concat([dataframe, data_], axis=0)
+                
+        dataframe.reset_index(inplace=True, drop=True)
         self.data = dataframe
-        dataframe.to_csv(self.path_to_save, index= False)
+        
+        if isinstance(self.scraper, GoogleScraper):
+            self.scraper.kill_driver()
+            
+        if self.path_to_save :
+            dataframe.to_csv(self.path_to_save, index= False)
         return self.data

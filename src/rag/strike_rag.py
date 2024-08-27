@@ -1,7 +1,17 @@
+
+import sys
+import os
+
+
+sys.path.append("../src/outpout_parsers")
+sys.path.append("../src/prompts")
+sys.path.append("../src/questions")
+
 from base_retrieval import *
 from output_parsers import *
 import strike_rag_prompts
 import strike_rag_questions
+
 class StrikeRAG(RetrivalBase):
     """
     StrikeRAG is a class designed to identify and analyze strikes in the automotive industry using a Retrieval-Augmented Generation (RAG) approach. It extends the RetrievalBase class and leverages various prompt templates and parsers to gather and interpret information related to labor strikes affecting companies, business sectors, and the automotive industry.
@@ -227,6 +237,12 @@ class StrikeRAG(RetrivalBase):
             
             self.number_token = self.number_token + len(self.__query1) + len(query2) + len(query3) + len(query4) + len(query5)
             self.number_token = self.number_token + len(str_doc1) + len(str_doc2) + len(str_doc3) + len(str_doc4) + len(str_doc5)
+<<<<<<< HEAD
           
+=======
+        print('#'*100)
+        print(results)
+        print('#'*100)
+>>>>>>> test
         self.results = results
         self.failed_labels = fail
