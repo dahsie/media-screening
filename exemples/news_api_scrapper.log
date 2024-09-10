@@ -1,0 +1,299 @@
+2024-08-27 14:01:06,568 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:06,880 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-27 14:01:21,828 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:21,832 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:21,973 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-27 14:01:22,117 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:22,118 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:22,251 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:01:22,256 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:22,257 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:22,473 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-27 14:01:22,794 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:22,796 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:22,924 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-27 14:01:23,064 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:23,065 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:23,199 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:01:23,204 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:01:23,205 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-27 14:01:23,997 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 95
+2024-08-27 14:02:01,192 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:01,196 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Streikposten&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:01,346 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:01,352 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:01,352 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Mitarbeiterprotest&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:01,521 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:01,526 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:01,528 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=sciopero&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:01,695 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 4
+2024-08-27 14:02:03,581 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:03,584 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=cordone+di+scioperanti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:03,729 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:03,734 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:03,735 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesta+dei+dipendenti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:04,141 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:04,146 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:04,148 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=стачка&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:04,276 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:04,281 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:04,282 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=пикет+линия&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:04,679 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:04,684 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:04,685 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=протест+на+служител&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:04,823 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:04,828 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:04,829 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=batida&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:05,221 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 5
+2024-08-27 14:02:14,879 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:14,882 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=linha+de+piquete&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:15,053 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:15,059 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:02:15,060 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesto+de+funcionários&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-27 14:02:15,205 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 14:02:15,210 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 14:31:42,183 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 14:31:42,473 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-27 15:22:59,434 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:00,083 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-27 15:23:14,415 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:14,419 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:14,836 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-27 15:23:15,252 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:15,253 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:15,646 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 15:23:15,654 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:15,655 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:16,161 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-27 15:23:16,740 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:16,741 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:17,124 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-27 15:23:17,531 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:17,532 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:17,669 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-27 15:23:17,676 [INFO] -- [news_collection()] : News collection completed.
+2024-08-27 15:23:17,678 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-27 15:23:18,524 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 95
+2024-08-28 08:19:06,778 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:07,312 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-28 08:19:26,491 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:26,495 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:26,637 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-28 08:19:27,036 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:27,037 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:27,426 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:19:27,431 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:27,432 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:27,561 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-28 08:19:28,124 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:28,124 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:28,514 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-28 08:19:28,918 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:28,919 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:29,295 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:19:29,300 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:19:29,301 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-28 08:19:29,557 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 95
+2024-08-28 08:20:08,178 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:08,181 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Streikposten&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:08,613 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:08,619 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:08,619 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Mitarbeiterprotest&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:08,751 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:08,756 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:08,758 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=sciopero&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:09,165 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 4
+2024-08-28 08:20:11,623 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:11,627 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=cordone+di+scioperanti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:12,014 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:12,020 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:12,021 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesta+dei+dipendenti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:12,423 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:12,429 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:12,431 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=стачка&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:12,833 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:12,838 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:12,839 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=пикет+линия&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:13,234 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:13,240 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:13,240 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=протест+на+служител&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:13,383 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:13,389 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:13,390 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=batida&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:13,551 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 5
+2024-08-28 08:20:32,325 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:32,329 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=linha+de+piquete&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:32,473 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:32,479 [INFO] -- [news_collection()] : News collection completed.
+2024-08-28 08:20:32,479 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesto+de+funcionários&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-28 08:20:32,634 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-28 08:20:32,640 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:48:45,416 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:48:45,710 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-29 11:49:09,939 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:09,943 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:10,367 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-29 11:49:10,786 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:10,787 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:10,931 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:49:10,937 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:10,938 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:11,520 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-29 11:49:11,926 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:11,927 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:12,312 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-29 11:49:12,447 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:12,448 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:12,578 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:49:12,583 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:49:12,585 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-29 11:49:12,842 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 95
+2024-08-29 11:50:31,154 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:31,159 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Streikposten&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:31,580 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:31,586 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:31,586 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Mitarbeiterprotest&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:31,969 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:31,974 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:31,975 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=sciopero&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:32,118 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 4
+2024-08-29 11:50:38,558 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:38,562 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=cordone+di+scioperanti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:38,708 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:38,712 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:38,713 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesta+dei+dipendenti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:38,851 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:38,856 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:38,857 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=стачка&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:39,267 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:39,272 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:39,273 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=пикет+линия&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:39,421 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:39,426 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:39,426 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=протест+на+служител&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:39,827 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:50:39,833 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:50:39,834 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=batida&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-29 11:50:40,301 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 5
+2024-08-29 11:51:01,895 [WARNING] -- [scrapping()] : Failed to download article from https://delitodeopiniao.blogs.sapo.pt/quando-1960-parece-ser-mais-distante-17329878
+2024-08-29 11:55:24,048 [WARNING] -- [scrapping()] : Failed to download article from https://tecoapple.com/2024/08/28/kim-deal-crystal-breath/
+2024-08-29 11:55:25,698 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:55:25,702 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=linha+de+piquete&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-29 11:55:25,863 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:55:25,870 [INFO] -- [news_collection()] : News collection completed.
+2024-08-29 11:55:25,871 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesto+de+funcionários&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-29 11:55:26,275 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-29 11:55:26,280 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:34:50,652 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:34:51,216 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-30 09:35:33,270 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:33,275 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:33,424 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 09:35:33,577 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:33,577 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:33,983 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:35:33,992 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:33,994 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:34,208 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 26
+2024-08-30 09:35:34,931 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:34,931 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:35,064 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 09:35:35,455 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:35,455 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:35,848 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:35:35,854 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:35:35,856 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-30 09:35:36,618 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 95
+2024-08-30 09:36:26,853 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:26,858 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Streikposten&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:27,273 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:27,279 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:27,280 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Mitarbeiterprotest&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:27,690 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:27,698 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:27,700 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=sciopero&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:28,120 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 4
+2024-08-30 09:36:39,147 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:39,151 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=cordone+di+scioperanti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:39,566 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:39,572 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:39,572 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesta+dei+dipendenti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:39,708 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:39,716 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:39,718 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=стачка&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:40,108 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:40,115 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:40,116 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=пикет+линия&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:40,258 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:40,264 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:40,265 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=протест+на+служител&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:40,403 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:36:40,410 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:36:40,413 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=batida&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-30 09:36:40,577 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 5
+2024-08-30 09:37:09,164 [WARNING] -- [scrapping()] : Failed to download article from https://delitodeopiniao.blogs.sapo.pt/quando-1960-parece-ser-mais-distante-17329878
+2024-08-30 09:41:32,816 [WARNING] -- [scrapping()] : Failed to download article from https://tecoapple.com/2024/08/28/kim-deal-crystal-breath/
+2024-08-30 09:41:34,171 [WARNING] -- [scrapping()] : Failed to download article from https://delitodeopiniao.blogs.sapo.pt/gozo-o-prazer-de-ter-vagar-17326622
+2024-08-30 09:41:39,107 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:41:39,111 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=linha+de+piquete&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-30 09:41:39,546 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:41:39,552 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 09:41:39,552 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesto+de+funcionários&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-25&to=2024-08-26
+2024-08-30 09:41:39,980 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 09:41:39,986 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:25:52,047 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:25:52,606 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 21
+2024-08-30 10:25:59,915 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:25:59,919 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:00,062 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 10:26:00,222 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:00,223 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:00,618 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 10:26:01,118 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:01,123 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:01,596 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 21
+2024-08-30 10:26:02,070 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:02,070 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=piquet+de+grève&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:02,465 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 10:26:02,867 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:02,869 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protestation+des+employés&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=fr&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:02,998 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 10:26:03,395 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:03,396 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=schlagen&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:03,905 [INFO] -- [set_params()] : Pagination set: 2 pages, Total results: 110
+2024-08-30 10:26:52,320 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:52,324 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Streikposten&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:52,730 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 2
+2024-08-30 10:26:53,934 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:53,938 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=Mitarbeiterprotest&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=de&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:54,095 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:26:54,101 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:54,103 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=sciopero&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:54,530 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 8
+2024-08-30 10:26:56,755 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:56,759 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=cordone+di+scioperanti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:56,896 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:26:56,902 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:56,903 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesta+dei+dipendenti&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=it&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:57,317 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 1
+2024-08-30 10:26:57,737 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:57,742 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=стачка&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:57,874 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:26:57,880 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:57,881 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=пикет+линия&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:58,287 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:26:58,294 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:58,295 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=протест+на+служител&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=bg&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:58,716 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:26:58,722 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:26:58,724 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=batida&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-29&to=2024-08-30
+2024-08-30 10:26:58,879 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 10
+2024-08-30 10:27:03,558 [WARNING] -- [scrapping()] : Failed to download article from https://delitodeopiniao.blogs.sapo.pt/quando-1960-parece-ser-mais-distante-17329878
+2024-08-30 10:27:06,413 [WARNING] -- [scrapping()] : Failed to download article from https://delitodeopiniao.blogs.sapo.pt/gozo-o-prazer-de-ter-vagar-17326622
+2024-08-30 10:27:09,873 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:27:09,877 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=linha+de+piquete&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-29&to=2024-08-30
+2024-08-30 10:27:10,018 [INFO] -- [set_params()] : Pagination set: 0 pages, Total results: 0
+2024-08-30 10:27:10,025 [INFO] -- [news_collection()] : News collection completed.
+2024-08-30 10:27:10,026 [INFO] -- [search()] : Searching with query: https://newsapi.org/v2/everything?q=protesto+de+funcionários&apiKey=b1dcacfbc49d4ac1a48db5f5652b11a2&language=pt&from=2024-08-29&to=2024-08-30
+2024-08-30 10:27:10,165 [INFO] -- [set_params()] : Pagination set: 1 pages, Total results: 3
+2024-08-30 10:27:12,391 [INFO] -- [news_collection()] : News collection completed.

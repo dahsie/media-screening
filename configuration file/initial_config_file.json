@@ -1,0 +1,38 @@
+{
+    "keywords": [
+        "strike",
+        "picket line",
+        "employee protest"
+    ],
+    "country_lang": [
+        {
+            "country": "BE",
+            "lang": [
+                "fr"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": [
+                "fr",
+                "de",
+                "it"
+            ]
+        },
+        {
+            "country": "BG",
+            "lang": [
+                "bg"
+            ]
+        }
+    ],
+    "news_api_key": "News API KEY to add if you use news api",
+    "rag_cong": {
+        "vertexai_llm": "gemini-1.5-flash",
+        "vertexai_embedding_name": "text-embedding-004",
+        "chunk_size": 2000,
+        "chunk_overlap": 10,
+        "max_doc": 5,
+        "retry": 1
+    }
+}
