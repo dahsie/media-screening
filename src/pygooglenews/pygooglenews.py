@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import urllib
 # from dateparser import parse as parse_date
 import requests
+from datetime import datetime # New import 
 
 # The function above is a new one added to the original file, if not 'from dateparser import parse as parse_date' in line 4 does not work
 def parse_date(date_string : str): 

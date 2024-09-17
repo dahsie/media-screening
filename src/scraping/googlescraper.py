@@ -9,6 +9,7 @@ import requests
 import re
 import math
 import time 
+from time import sleep
 
 from newspaper import  Article, Config
 
@@ -19,7 +20,8 @@ from pygooglenews import GoogleNews
 import selenium
 from selenium import webdriver #Webdriver de Selenium qui permet de contrôler un navigateur
 from selenium.webdriver.common.by import By 
-
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 
 from utils import create_logger
 

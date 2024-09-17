@@ -152,7 +152,7 @@ class GoogleTranslate :
 
             data_ = data_.loc[data_['titles'] !='',:] if data_ is not None and len(data_) !=0  else None
             data_ = data_.loc[data_['texts'] !='',:] if data_ is not None and  len(data_) !=0 else None
-            data_ = data_.loc[data_['texts'].str.len() < limit, :] if data_ is not None and  len(data_) !=0 else None
+            # data_ = data_.loc[data_['texts'].str.len() < limit, :] if data_ is not None and  len(data_) !=0 else None
             
             if data_ is None or len(data_) == 0:
                 continue

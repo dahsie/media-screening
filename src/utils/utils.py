@@ -90,7 +90,8 @@ def split_liste(texts : list[str], limit : int , separators: list[str] = ['.', '
             pos += 1 #One include the ponctuation sign within the sub-string
             text = text[:pos]
             length_text = len(text)
-            logger.warning(f"The text has {length_text} tokens, which exceeds the limit of {limit} tokens. It is troncated to {len(text)} token")
+            logger.warning(f"The text contains {length_text} tokens, which exceeds the limit of {limit} tokens. It has been truncated to {len(text)} tokens. Please note that the `len()` function may not correctly count tokens for certain languages, such as Bulgarian. Therefore, you might encounter this warning even if the token count appears to be below the limit.")
+
 
         # else :
         cpt += length_text
