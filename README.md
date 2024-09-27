@@ -579,4 +579,5 @@ write_logger_file(logger_folder_name = 'fire_summarizer_log', log_file_name = su
 
 This is an exemple of final results :
 
-![image-7.png](attachment:image-7.png)
+
+[Local Image](./media-screening/images/results.png)
