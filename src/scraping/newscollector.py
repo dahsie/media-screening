@@ -1,9 +1,6 @@
-from media.src.scraping.newsapiscraper import NewsApiScraper
-from media.src.scraping.googlescraper import GoogleScraper
-#from googlescraper import *
+from newsapiscraper import *
+from googlescraper import *
 from typing import Union
-import pandas as pd
-from tqdm import tqdm
 
 class NewsCollector:
     """

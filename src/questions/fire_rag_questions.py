@@ -5,6 +5,4 @@ query2 = "In which sectors does '{company}' operate, and how are they impacted b
 
 query3 = """Given that the main sectors of "{company}" are :  "{business_sectors}",   is the car maker industry concerned by the fire at its factory? (yes/no). Think step by step if the product of "{company}" can be use in car making before answering.""" 
 
-#query5 = "Answer 'yes' or 'no' if '{company}' has really undergone a fire or explosion on its premises."
-
-query5 = "Answer 'yes' or 'no' if a fire or explosion broke out on '{company}' premises or factory."
+query5 = "Answer 'yes' or 'no' if '{company}' has really undergone a fire or explosion on its premises."

@@ -1,14 +1,15 @@
 import sys
 import os
 
-from media.src.rag.base_retrieval import *
-from media.src.output_parsers.output_parsers import *
 
+sys.path.append("../src/outpout_parsers")
+sys.path.append("../src/prompts")
+sys.path.append("../src/questions")
 
-from media.src.prompts import fire_rag_prompts
-from media.src.questions import fire_rag_questions
-
-
+from base_retrieval import *
+from output_parsers import *
+import fire_rag_prompts
+import fire_rag_questions
 class FireRAG(RetrivalBase):
     
     """
@@ -40,7 +41,7 @@ class FireRAG(RetrivalBase):
 
     keys_order = ['fire_plant', 'impacted_company','locations', 'impacted_business_sectors', 'automotive_industry','description', 'sources']
     
-    def __init__(self,google_api_key: str, vertexai_llm='gemini-1.5-flash',
+    def __init__(self, vertexai_llm='gemini-1.5-flash',
                  vertexai_embedding_name ='text-embedding-004',
                  retry :int= 2, max_doc : int = 5, chunk_size: int = 3000, chunk_overlap: int = 10):
         """
@@ -55,7 +56,7 @@ class FireRAG(RetrivalBase):
             chunk_overlap (int): The overlap between chunks for document splitting.
         """
         
-        super(FireRAG, self).__init__(google_api_key = google_api_key, vertexai_llm=vertexai_llm,
+        super(FireRAG, self).__init__(vertexai_llm=vertexai_llm,
                  vertexai_embedding_name = vertexai_embedding_name,
                  retry = retry, max_doc = max_doc ,chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         

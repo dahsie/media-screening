@@ -1,10 +1,14 @@
 
-from media.src.utils.utils import create_logger
-from datetime import datetime
-import json
+
+import sys
+sys.path.append("../src/utils/")
+
+from utils import create_logger
 
 logger = create_logger(__name__, 'filtering.log')
 
+from datetime import datetime
+import json
 
 class Filter :
     
@@ -101,7 +105,7 @@ class Filter :
             self.save_to_json(data_to_save= results, filename = fname)
         
         self.__results = results
-        return self.__desirable, self.__non_desirable
+        return results
         
     def save_to_json(self,data_to_save: list[dict], filename : str) -> None :
         """Saves the input list of dictionaries to a JSON file with the specified filename.

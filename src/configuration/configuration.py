@@ -2,12 +2,10 @@ from deep_translator import GoogleTranslator
 import json
 import logging
 from typing import Tuple, Optional, Union, List, Dict
+import sys
+sys.path.append("../src/utils/")
 
-import numpy as np
-
-from media.src.utils.utils import create_logger
-from media.src.translation.dataikugoogletranslation import DataikuGoogleTranslate
-
+from utils import create_logger
 
 logger = create_logger(__name__, 'configuration.log')
 
@@ -58,26 +56,16 @@ class Configuration:
             ValueError: If the configuration contains invalid country or language codes.
         """
         logger.info(f"Initializing Configuration with file: {initial_config_file}")
-        self.__validate_params(initial_config_file=initial_config_file, initial_config_dict=initial_config_dict)
         self.initial_config_file = initial_config_file
         self.final_config_file = final_config_file
-        
-        self.__config =self.__read_json(initial_config_file = initial_config_file) if initial_config_file is not None else initial_config_dict
+        self.__config =self.__read_json(initial_config_file = initial_config_file)
         self.__country_lang_dict = self.__config['country_lang']
-        #self.__translator = GoogleTranslator(source= "auto",target="en")
-        self.__google_api_key = google_api_key
-        self.__translator = DataikuGoogleTranslate(api_key=google_api_key)
+        self.__translator = GoogleTranslator(source= "auto",target="en")
 
         self.__validate_news_config()
         self.__news_config()
    
     
-    def __validate_params(self, initial_config_file : str, initial_config_dict : dict ) -> None:
-        
-        if initial_config_file is None and initial_config_dict is None :
-            logger.error("initial_config_file and, initial_config_dict should not be both None")
-            raise ValueError("initial_config_file and, initial_config_dict should not be both None")
-         
     def __read_json(self, initial_config_file) :
         """
         Reads a JSON file and returns its content.
@@ -146,22 +134,10 @@ class Configuration:
             KeyError: If the configuration does not contain the 'keywords' key.
             Exception: If the translation fails for any other reason.
         """
-        
-        params = {
-            "q": None,
-            "source": "en",
-            "target": lang,
-            "key": self.__google_api_key
-        }
-
         try:
-            #self.__translator.target = lang
-           
+            self.__translator.target = lang
             keywords = self.__config['keywords'] if isinstance(self.__config['keywords'], list) else [self.__config['keywords']]
-            if params["source"] == params["target"]:
-                return keywords
-            #translation = self.__translator.translate_batch(keywords)
-            translation = self.__translator.translate_liste(list_of_text = keywords, params = params)
+            translation = self.__translator.translate_batch(keywords)
             return translation
         except KeyError as ke :
             logger.error("`self.__config` does not contain the key 'keywords'. Please check the configuration file.")
@@ -185,7 +161,7 @@ class Configuration:
                 news_configs.append({
                     'country': item['country'],
                     'lang': lang,
-                    'queries': list(np.unique(translated_keywords)) # If two translated key words are written in the same way, we then keep only one.
+                    'queries': translated_keywords
                 })
         self.__config['country_lang'] = news_configs
         

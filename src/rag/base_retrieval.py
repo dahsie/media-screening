@@ -13,8 +13,7 @@ from datetime import datetime, timedelta, date
 from time import sleep, time
 from tqdm import tqdm
 
-# from langchain_google_vertexai import VertexAIEmbeddings, VertexAI
-from langchain_google_genai import GoogleGenerativeAIEmbeddings, GoogleGenerativeAI
+from langchain_google_vertexai import VertexAIEmbeddings, VertexAI
 from langchain_community.document_loaders import DataFrameLoader
 from langchain_core.output_parsers import  JsonOutputParser
 
@@ -83,7 +82,7 @@ class RetrivalBase(ABC):
     
     liste = ['n/a', 'unknown', 'not mentioned', 'none', 'null']
     
-    def __init__(self, google_api_key: str, vertexai_llm: str, vertexai_embedding_name : str, retry :int, max_doc : int, chunk_size :int, chunk_overlap : int):
+    def __init__(self, vertexai_llm: str, vertexai_embedding_name : str, retry :int, max_doc : int, chunk_size :int, chunk_overlap : int):
         """
         Initializes the RetrivalBase class with the given parameters and sets up embeddings and language model instances.
         
@@ -96,11 +95,9 @@ class RetrivalBase(ABC):
             chunk_overlap (int): The overlap between chunks for document splitting.
         """
         
-        # self.embeddings : VertexAIEmbeddings = VertexAIEmbeddings(model_name=vertexai_embedding_name) # CCP version
-        self.embeddings : GoogleGenerativeAIEmbeddings = GoogleGenerativeAIEmbeddings(model=vertexai_embedding_name, google_api_key = google_api_key)
+        self.embeddings : VertexAIEmbeddings = VertexAIEmbeddings(model_name=vertexai_embedding_name)
         
-        # self.llm : VertexAI = VertexAI(model_name=vertexai_llm, temperature=0.0) #   GCP version
-        self.llm :  GoogleGenerativeAI =  GoogleGenerativeAI(model=vertexai_llm, temperature=0.0, google_api_key = google_api_key)
+        self.llm : VertexAI = VertexAI(model_name=vertexai_llm, temperature=0.0)
         
         self.core_chain  = (self.core_name_prompt | self.llm)
         

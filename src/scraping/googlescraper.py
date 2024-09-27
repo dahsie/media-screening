@@ -1,10 +1,8 @@
 import sys
-from media.src.pygooglenews.pygooglenews import GoogleNews
-from media.src.utils.utils import create_logger
-#sys.path.append("../src/pygooglenews")
-#sys.path.append("../src/utils")
+sys.path.append("../src/pygooglenews")
+sys.path.append("../src/utils")
 
-from media.src.scraping.scraper import *
+from scraper import *
 
 
 import requests
@@ -17,7 +15,7 @@ from newspaper import  Article, Config
 
 
 from tqdm import tqdm
-#from pygooglenews import GoogleNews
+from pygooglenews import GoogleNews
 
 import selenium
 from selenium import webdriver #Webdriver de Selenium qui permet de contrôler un navigateur
@@ -25,8 +23,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 
-
-#from utils import create_logger
+from utils import create_logger
 
 logger = create_logger(__name__, 'google_scrapper.log')
 
@@ -135,8 +132,7 @@ class GoogleScraper(Scraper) :
                 elif isinstance(options, selenium.webdriver.firefox.options.Options):
                     self.driver = webdriver.Firefox(options=options)
             else :
-                # options = webdriver.ChromeOptions()
-                options = webdriver.firefox.options.Options()
+                options = webdriver.ChromeOptions()
                 options.add_argument('--headless')
                 options.add_argument('disable-infobars')
                 options.add_argument('--no-sandbox')

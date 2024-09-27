@@ -1,5 +1,5 @@
 
-from media.src.scraping.scraper import *
+from scraper import *
 
 import requests
 import re
@@ -8,12 +8,11 @@ from newspaper import  Article
 
 from tqdm import tqdm
 
-#import sys
-#sys.path.append("../src/utils")
+import sys
+sys.path.append("../src/utils")
 
-#from utils import create_logger
+from utils import create_logger
 
-from media.src.utils.utils import create_logger
 logger = create_logger(__name__, 'news_api_scrapper.log')
 
 class NewsApiScraper(Scraper) :

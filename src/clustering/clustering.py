@@ -2,7 +2,7 @@ import logging
 
 import os
 
-from media.src.utils.utils import create_logger
+from media_copy.src.utils.utils import create_logger
 
 import numpy as np
 import pandas as pd

@@ -1,6 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import  JsonOutputParser
-from media.src.output_parsers.output_parsers import AutomotiveSector, BusinessSectors, Company, Temporality, LaborStrike
+from output_parsers import AutomotiveSector, BusinessSectors, Company, Temporality, LaborStrike
 
 auto_parser = JsonOutputParser(pydantic_object = AutomotiveSector)
 parser_business_sectors = JsonOutputParser(pydantic_object = BusinessSectors)
