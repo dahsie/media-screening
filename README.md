@@ -19,7 +19,7 @@ git clone --branch master --single-branch https://github.com/dahsie/media-screen
 ## Creating configuration file.
 In this part, we translate each keywords to some languages, depending on the list of language code we have in our disposal.
 
-```
+```python
 dict_config = {}
 dict_config['strike_keywords'] = ['strike', 'picket line', 'employee protest']
 dict_config['country_lang'] = [
@@ -45,7 +45,7 @@ dict_config["decision_function_args"] = {
 #### generating an initial configuration file.
 We can save the first dict whithin a file and we can use it later
 
-```
+```python
 initial_config_file ="../config/initial_config_file.json"
 with open(initial_config_file, 'w') as file :
     json.dump(dict_config, file, indent = 4)
@@ -55,7 +55,7 @@ with open(initial_config_file, 'w') as file :
 All keyword in the initial configuartion file will be translated into each language using the language code. 
 Also, each language code and country code should be valiadated. A configuration object will be use for that purpose. 
 
-```
+```python
 from media.src.confiration.configuration import Configuration
 
 initial_config_file = "../config/initial_config_file.json"
@@ -74,7 +74,8 @@ We have to ways of collecting news. We utilise both :
 
 #### collecting news with GoogleScrapper 
 
-```
+```python
+
 import dataiku
 import pandas as pd, numpy as np
 from dataiku import pandasutils as pdu
@@ -128,7 +129,8 @@ write_logger_file(logger_folder_name = 'googlescraper_strike_log', log_file_name
 
 #### collecting news with News API
 
-```
+```python
+
 import dataiku
 import pandas as pd, numpy as np
 
@@ -168,7 +170,8 @@ write_logger_file(logger_folder_name = 'news_api_strike_log', log_file_name = co
 News are collected in parallel via News API and GoogleScrapper. If one solution are down the other one remain while finding out what cause the crash.
 If there all work, we get more news buy concatenating there results.
 
-```
+```python
+
 import dataiku
 import pandas as pd, numpy as np
 from datetime import datetime, timedelta
@@ -180,8 +183,6 @@ news_api_strike_df = news_api_strike.get_dataframe()
 
 googlescraper_strike1 = dataiku.Dataset("googlescraper_strike1")
 googlescraper_strike1_df = googlescraper_strike1.get_dataframe()
-
-
 
 
 news_df = pd.concat([googlescraper_strike1_df, news_api_strike_df])
@@ -205,7 +206,7 @@ news.write_with_schema(news_df)
 
 We translate all collected news into english. We have to possibilties : either we translate all the text into a single language (e.g. english) or we use a multilanguage model for the remaing processing we want to apply. We choose the first solution. 
 
-```
+```python
 import dataiku
 import pandas as pd
 import numpy as np
@@ -283,7 +284,8 @@ write_logger_file(logger_folder_name = 'strike_translation_log', log_file_name =
 
 ### CLustering
 After translating the collected news and dropping duplications base on the text, title and link, there are also some very similar news. We want to cluster the news before extracting information on the each cluster. So we compute the embedding of each text and then apply the hierarchical clustering technique. 
-```
+
+```python
 import dataiku
 import pandas as pd
 import numpy as np
@@ -340,7 +342,8 @@ write_logger_file(logger_folder_name = 'strike_clustering_log', log_file_name = 
 ### RAG : Retreival Augmented Generation 
 
 We used the **RAG** technique in order to extract some information, for instance, companies names, their location (cities and countris where the strike is taking place), the activities sectors(this allow to know if their activities are related to automotive construction), the strike stutus(if the strike is ongoing, upcoming, ended or avoided because no interest for has if the strike is ended or avoider), the naure of the strike(labor strike in this exemple. This allows avoiding some other strike like hunger strike, etc.).  All those information couple with the [**matching process**](#matching_process) allows us to classify a news as relevant or not.
-```
+
+```python
 import dataiku
 import pandas as pd, numpy as np
 from dataiku import pandasutils as pdu
@@ -395,7 +398,7 @@ After **RAG**,the processed articles are match with the suppliers dataset. This 
 
 This matching level allow attesting if a plant in given location will potentially be affected.
 
-```
+```python
 
 import dataiku
 import pandas as pd, numpy as np
@@ -436,7 +439,7 @@ write_logger_file(logger_folder_name = 'strike_matching_log', log_file_name = ma
 After matching, we filter out the relevant articles. We match first because, detected a company as a supplier is take into account when article is classifier as relevent or not.
 Also, during this filtering, use a function which classifier an article as relevant or not. This function take an article wich is a dictionary processed by the **RAG**(for retrieving information) and match with our supplier database. So if a new event like for exemple **fire plant** is treated, one will provide a fucntion that allow classifying a processed news(processed by RAG and matched) as relevant or not. 
 
-```
+```python
 
 import dataiku
 import pandas as pd, numpy as np
@@ -475,7 +478,7 @@ After Filtering out the relevant news, it can happened that we have a company na
 
 Also we generate geographical cordonate for each city of each relevant news. For that we use **geopy** librairy. 
 
-```
+```python
 
 import dataiku
 import pandas as pd
@@ -515,7 +518,7 @@ write_dataiku_json(folder_name = "grouping_output", file_name = groupped_result_
 After groupping relevant articles, we generate a short description for detected relevant news. 
 given that we do not have the text for each article after processing them with **RAG** techniques, one have to get the text of each relevant articles in order to propose a summary. Also, the relevant articles are grouped either but clustering or by the custom grouping technique we designed. So we have tho all those goupped articles and then propose a summary of the group. We the the text base on the urls. The text of those article are in **rag_data**. 
 
-```
+```python
 import dataiku
 import pandas as pd, numpy as np
 from media.src.summarization.summarizer import Summarizer
