@@ -1,18 +1,8 @@
 import logging
+from media.src.utils.utils import create_logger
 
 # Configure the module-level logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-
-# Create a file handler
-file_handler = logging.FileHandler('deepltranstor.log')
-file_handler.setLevel(logging.INFO)
-
-# formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-formatter = logging.Formatter('%(asctime)s  [%(levelname)s] -- [%(funcName)s()] : %(message)s')
-file_handler.setFormatter(formatter)
-
-logger.addHandler(file_handler)
+logger = create_logger()
 
 
 from deep_translator import GoogleTranslator
@@ -23,7 +13,7 @@ import pandas as pd
 
 from deep_translator.exceptions import RequestError
 
-
+logger = create_logger(__name__, 'deepLtranslator.log')
 
 class DeepLTranslation:
     """

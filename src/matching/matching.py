@@ -2,11 +2,11 @@
 
 from media.src.utils.utils import create_logger
 
-logger = create_logger(__name__, 'matching.log')
-
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+
+logger, logfile_path = create_logger(__name__, 'matching.log')
 
 class Matching :
     """
@@ -46,6 +46,8 @@ class Matching :
         self.matched_companies_index : list[str] = []
         self.matched_companies_cites : list[list[str]] = []
         self.matched_companies_countries : list[list[str]] = []
+        self.logfile_path = logfile_path
+        logger.info("Matching initialize successfully!")
         
     def __preprocess(self, liste :list) -> list:
         """
@@ -60,6 +62,8 @@ class Matching :
         for item in liste:
             string = " ".join(item.split())
             suppliers.append(string.strip().lower())
+            
+        logger.info("supplier processed successfully!")
         return suppliers
   
     
@@ -113,6 +117,8 @@ class Matching :
                 - A dictionary of intersected suppliers.
                 - The updated news dataset with matching information.
         """
+        
+        logger.info("matching process ...")
         suppliers_cities, suppliers_countries, list_of_suppliers , tiers =  suppliers["suppliers_cities"], suppliers["suppliers_countries"], suppliers["suppliers_names"], suppliers["suppiers_tiers"]
         
         intersect =dict()
@@ -122,8 +128,11 @@ class Matching :
             core_name = news['core_company'].lower().strip() if news['core_company'] !='' else company # a revoir
             article_cities, article_countries = [],[]
             for location in news['locations'] :
-                article_cities.append(location['city'].lower())
-                article_countries.append(location['country'].lower())
+                locations_keys = list(location.keys())
+                if'city' in locations_keys:
+                    article_cities.append(location['city'].lower() if location['city'] is not None else "")
+                if 'country' in locations_keys:
+                    article_countries.append(location['country'].lower() if location['country'] is not None else "")
             
             set_news[index1]['supplier'] = 'no'           
             set_news[index1]['tierN'] = 'no'
@@ -182,7 +191,8 @@ class Matching :
 
         self.intersect = intersect
         self.results = set_news
-        
+        logger.info("Matching ended successfully")
+        logger.debug(f"intersection : {intersect}")
         return intersect, set_news
         
         
@@ -198,6 +208,7 @@ class Matching :
             self.intersect: A dictionary of intersected suppliers.
             self.results: The updated news dataset with matching information.
         """
+        logger.info("Starting matching process.")
         suppliers = {
             "suppliers_countries" : self.__preprocess(list(dataframe['country'])),
             "suppliers_cities" : self.__preprocess(list(dataframe['city'])),
@@ -206,5 +217,6 @@ class Matching :
         }
         
 
-
+        
         self.intersect, self.results = self.__match(set_news = set_news, suppliers=suppliers)
+        logger.info("Matching process ended !")

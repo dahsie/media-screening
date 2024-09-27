@@ -10,7 +10,7 @@ from typing import Optional
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 
-logger = create_logger(__name__, 'dataiku_google_embeddings.log')
+logger, logfile_path = create_logger(__name__, 'dataiku_google_embeddings.log')
 
 
 class DataikuGoogleEmbeddings:
@@ -55,7 +55,10 @@ class DataikuGoogleEmbeddings:
         self.__dimensionality = dimensionality
         self.__embeddings = self.__create_embeddings_models(vertexai_embedding_name=vertexai_embedding_name, google_api_key=google_api_key)
         self.__embedded_data: np.ndarray = None
+        self.logfile_path = logfile_path
         logger.info(f"Initialized GoogleEmbeddings with model: {vertexai_embedding_name}")
+        logger.info(f"Embedding dimensionality: {dimensionality}")
+
     
     def __create_embeddings_models(self, vertexai_embedding_name: str, google_api_key: str) -> GoogleGenerativeAIEmbeddings:
         """
@@ -106,6 +109,9 @@ class DataikuGoogleEmbeddings:
             
         self.__embedded_data = texts
         logger.info("Successfully embedded the sentences.")
+        logger.info(f"number of text that has been embedded = {len(sentences)}")
+        logger.info(f"number of text that has been embedding data shape = {self.__embedded_data.shape}")
+
     
 
     # ------------------------------------ PROPERTIES ------------------------------------------------------------------------------

@@ -4,7 +4,6 @@ import os
 
 from media.src.utils.utils import create_logger
 
-
 import numpy as np
 import pandas as pd
 
@@ -14,7 +13,7 @@ from tqdm import tqdm
 import math
 
 
-logger = create_logger(__name__, "clustering.log")
+logger, logfile_path = create_logger(__name__, "clustering.log")
 
 class Clustering:
     """
@@ -75,6 +74,9 @@ class Clustering:
         self.index = None
         self.is_fitted = False
         self.ypred = None
+        
+        self.logfile_path = logfile_path
+        logger.info('Clustering object has been initialized successfully !')
     
     
 
@@ -121,6 +123,8 @@ class Clustering:
         min_dist = np.min(pairwise_dist)
         max_dist = np.max(pairwise_dist)
         step_size = (max_dist - min_dist) / n
+        
+        logger.info('Generating a dynamic range of distance thresholds based on the pairwise distances of the data')
         return [min_dist + i * step_size for i in range(1, n+1)], pairwise_dist
 
     def distance_threshold(self) -> None:
@@ -133,6 +137,7 @@ class Clustering:
         if self.is_fitted:
             self.index = math.floor(len(self.dist) * (self.__percentile / 100))
         else:
+            logger.error("Model is not fitted yet. Cannot determine distance threshold.")
             raise RuntimeError("Model is not fitted yet. Cannot determine distance threshold.")
 
     def predict(self, xtrain: np.ndarray) -> np.ndarray:
@@ -149,10 +154,17 @@ class Clustering:
         if not self.is_fitted:
             logger.info("Model is not fitted yet. Fitting the model now.")
             self.fit(xtrain)
+            
+        logger.info("Setting distance_threshold")
         self.distance_threshold()
 
         self.__model.distance_threshold = self.dist[self.index]
+        logger.info(f"distance_threshold = {self.__model.distance_threshold}")
         self.ypred = self.__model.fit_predict(xtrain)
+        logger.info("Predictions made")
+        logger.info(f"data shape to predict = {xtrain.shape}")
+        logger.info(f"number of predicted clusters = {len(np.unique(self.ypred))}")
+
         return self.ypred
     
     
@@ -168,6 +180,7 @@ class Clustering:
         if metric not in self.VALID_METRICS or not isinstance(metric, str) or metric is None:
             raise ValueError(f"Invlaid linkage = '{linkage}'. The valid ones are : {self.VALID_METRICS}")
         if self.__linkage == 'ward'  and metric != 'euclidean' :
+            logger.error(f"Invalid metric = '{metric}'. The only valid matric for linkage = '{self.VALID_METRICS}' is 'euclidean' ")
             raise ValueError(f"Invalid metric = '{metric}'. The only valid matric for linkage = '{self.VALID_METRICS}' is 'euclidean' ")
         self.__metric = metric
         self.__model.metric = self.__metric
@@ -179,6 +192,7 @@ class Clustering:
     @linkage.setter
     def linkage(self, linkage : str) -> None:
         if linkage not in self.VALID_LINKAGES or not isinstance(linkage, str) or linake is None:
+            logger.error(f"Invlaid linkage = '{linkage}'. The valid ones are : {self.VALID_LINKAGES}")
             raise ValueError(f"Invlaid linkage = '{linkage}'. The valid ones are : {self.VALID_LINKAGES}")
         self.__linkage = linkage
         self.__model.linkage = self.__linkage

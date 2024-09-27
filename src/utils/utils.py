@@ -5,12 +5,14 @@ from geopy.geocoders import Nominatim
 import dataiku
 from io import StringIO
 import json
+import sys
+import os
 
 
-
-def create_logger(name, file_name : str):
+def create_logger(name: str, file_name: str):
     """
     Creates a logger with a specified name and configures it to log messages to a file.
+    Ensures handlers are not duplicated.
 
     Args:
         name (str): The name of the logger.
@@ -18,25 +20,110 @@ def create_logger(name, file_name : str):
 
     Returns:
         logging.Logger: The configured logger instance.
+        str: The path to the log file.
     """
     logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
 
-    # Create a file handle
-    file_handler = logging.FileHandler(file_name)
-    file_handler.setLevel(logging.INFO)
+    # Reset existing handlers to avoid duplication
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    logger.setLevel(logging.DEBUG)
 
     # Create a formatter and set it for the handler
     formatter = logging.Formatter('%(asctime)s [%(levelname)s] -- [%(funcName)s()] : %(message)s')
+
+    # Create a file handler
+    file_handler = logging.FileHandler(file_name, encoding='utf-8')
+    file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(formatter)
 
     # Add the file handler to the logger
     logger.addHandler(file_handler)
-    
-    return logger
-    
-logger = create_logger(__name__, 'utils.log')
 
+    return logger, file_handler.baseFilename
+
+def copy_log_file(source_file: str, destination_file: str) -> None:
+    """
+    Copies the contents of the source log file to the destination log file without erasing its current content.
+
+    Args:
+        source_file (str): The path to the source log file.
+        destination_file (str): The path to the destination log file.
+
+    Returns:
+        None
+    """
+    with open(source_file, 'r') as src:
+        content = src.read()  # Read the entire content of the source file
+    
+    with open(destination_file, 'a') as dest:  # Open in append mode
+        dest.write(content)  # Append the content to the destination file
+
+def write_logger_file(logger_folder_name: str, log_file_name: str, final_log_name: str) -> None:
+    """
+    Uploads a log file to a specified folder in Dataiku.
+
+    This function opens a log file and uploads its content to a folder in Dataiku.
+    The log file is uploaded using its base file name (without the full path).
+
+    Args:
+        logger_folder_name (str): The identifier of the Dataiku managed folder where the log file will be uploaded.
+        log_file_name (str): The full path to the log file that will be uploaded.
+
+    Returns:
+        None: This function does not return any value.
+    """
+    log_folder = dataiku.Folder(logger_folder_name)
+    
+    with open(log_file_name, "r") as file:
+        #log_file = os.path.basename(log_file_name)
+        log_folder.upload_stream(final_log_name, file.read().encode('utf-8'))
+        
+#def create_logger(name, file_name : str):
+#    """
+#    Creates a logger with a specified name and configures it to log messages to a file.
+#
+#    Args:
+#        name (str): The name of the logger.
+#        file_name (str): The name of the file where the log messages will be saved.
+#
+#    Returns:
+#        logging.Logger: The configured logger instance.
+#    """
+#    logger = logging.getLogger(name)
+#    logger.setLevel(logging.INFO)
+
+#    # Create a file handle
+#    file_handler = logging.FileHandler(file_name)
+#    file_handler.setLevel(logging.INFO)
+#
+#    # Create a formatter and set it for the handler
+#    formatter = logging.Formatter('%(asctime)s [%(levelname)s] -- [%(funcName)s()] : %(message)s')
+#    file_handler.setFormatter(formatter)
+#
+#    # Add the file handler to the logger
+#    logger.addHandler(file_handler)
+#    
+#    return logger
+    
+logger, logfile_path = create_logger(__name__, 'utils.log')
+
+
+def get_global_variables() :
+    """
+    Retrieves the global variables of the default project in Dataiku.
+
+    This function uses the Dataiku API to connect to the client, get the default project, and obtain the associated global variables.
+
+    Returns:
+        dict: A dictionary containing the project's global variables.
+    """
+    client = dataiku.api_client()
+    project = client.get_default_project()
+    var_intern = project.get_variables()
+
+    return var_intern
 
 def read_dataiku_json(folder_name: str, file_name: str) -> dict:
     """

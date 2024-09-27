@@ -14,7 +14,7 @@ sys.path.append("/home/jupyter/news/src")
 
 from utils import create_logger, split_liste
 
-logger = create_logger(__name__, 'google_embeddings.log')
+logger, filename = create_logger(__name__, 'google_embeddings.log')
 
 
 class GoogleEmbeddings :

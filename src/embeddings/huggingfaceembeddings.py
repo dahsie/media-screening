@@ -4,7 +4,7 @@ import os
 
 sys.path.append("../src/utils/")
 from utils import create_logger
-logger = create_logger(__name__, "huggingface_embedding.log")
+logger, file_name= create_logger(__name__, "huggingface_embedding.log")
 
 import numpy as np
 import pandas as pd

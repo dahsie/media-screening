@@ -28,7 +28,7 @@ from selenium.common.exceptions import TimeoutException
 
 #from utils import create_logger
 
-logger = create_logger(__name__, 'google_scrapper.log')
+logger, logfile_path = create_logger(__name__, 'google_scrapper.log')
 
 
 class GoogleScraper(Scraper) :
@@ -277,7 +277,7 @@ class GoogleScraper(Scraper) :
         true_links = []
         fails_index = []
         for i, link in enumerate(tqdm(kwargs["links"])):
-            
+            print("link before : {ink}")
             try :
                 self.driver.get(link)
 
@@ -294,6 +294,7 @@ class GoogleScraper(Scraper) :
                 
                 # texts.append(article.text)
                 # true_links.append(self.driver.current_url)
+                print("link after : {self.driver.current_url}")
                 self.__handle_article_extraction(article, texts, true_links)
             
             except NoSuchElementException as nse:
@@ -320,12 +321,32 @@ class GoogleScraper(Scraper) :
         # # print(f"texts :{len(self.articles['texts'])}")
         # print(f"links :{len(self.articles['links'])}")
         # # print(f"fails_index = {fails_index}")
-        for index in fails_index : # Deleting the failing index titles and dates so that 'texts' will match them (texts, articles["dates"], articles["titles"] must have the same length
-            self.articles['dates'].pop(index)
-            self.articles['titles'].pop(index)
+     
+        news_list = []
+        for index, _ in enumerate(self.articles['dates']) : # Deleting the failing index titles and dates so that 'texts' will match them (texts, articles["dates"], articles["titles"] must have the same length
+            if index not in fails_index :
+                news_list.append(index)
+            #self.articles['dates'].pop(index)
+            #self.articles['titles'].pop(index)
+        dates = []
+        titles = []
+        # print("*"*100)
+        # print("*"*100)
+        print(f"fails index = {fails_index}")
+        print(f"news index = { news_list}")
+        # print("*"*100)
+        # print("*"*100)
         
+        for index in news_list:
+            dates.append(self.articles['dates'][index])            
+            titles.append(self.articles['titles'][index])
+        
+        self.articles['dates'] = dates
+        self.articles['titles'] = titles
         self.articles['texts']  = texts
         self.articles['links'] = true_links
+        # print("article :")
+        # print(self.articles)
     
     def news_collection(self):
         """
@@ -341,3 +362,4 @@ class GoogleScraper(Scraper) :
         self.scrapping(**self.articles)
         super(GoogleScraper, self).news_collection(self.articles)
         logger.info("News collection completed.")
+        self.logfile_path = logfile_path

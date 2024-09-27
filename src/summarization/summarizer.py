@@ -10,11 +10,13 @@ from langchain.chains.summarize import load_summarize_chain
 from langchain_community.document_loaders import DataFrameLoader
 from langchain_text_splitters import TokenTextSplitter, RecursiveCharacterTextSplitter
 from langchain_core.prompts import PromptTemplate
-
+from datetime import datetime
 import pandas as pd
-
-
+from media.src.utils.utils import create_logger
 import re
+
+
+logger, logfile_path = create_logger(__name__, 'summarizer.log')
 
 class Summarizer :
 
@@ -70,6 +72,8 @@ class Summarizer :
         self.__refine_prompt = refine_prompt
         self.__chain = self.create_chain()
         self.dataframe : pd.DataFrame = None
+        self.logfile_path = logfile_path
+        logger.info('Summarizer has been initialized successfully!')
         
     
     
@@ -83,6 +87,7 @@ class Summarizer :
         chain = load_summarize_chain(llm=self.__llm, chain_type=self.__chain_type, question_prompt=self.__prompt,
         refine_prompt=self.__refine_prompt, return_intermediate_steps=True,input_key="input_documents", output_key="output_text")
         
+        logger.info('chain created successfully !')
         return chain
 
     def get_documents_from_dataframe(self,dataframe: pd.DataFrame, document: str='translated_text', chunk_size: int=1000, chunk_overlap: int=100) :
@@ -103,6 +108,7 @@ class Summarizer :
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
         docs = text_splitter.split_documents(df_document)
         
+        logger.info(f"Splitting text data from the column '{document}' of the input DataFrame into smaller chunks for summarization.")
         return docs
     
     
@@ -121,6 +127,7 @@ class Summarizer :
         Returns:
             list[dict]: The JSON list with the added or updated descriptions.
         """
+        logger.info('Starting desciption generation!')
         
         for index, item in enumerate(json_data):
             urls = []
@@ -132,6 +139,9 @@ class Summarizer :
                         urls += sub['sources'] if len(sub) != 0 else []
                         
                 df = dataframe.loc[dataframe['url'].isin(urls), :] 
+                dates_ = list(df['date'])
+                dates = [datetime.strptime(date, "%Y-%m-%dT%H:%M:%SZ") for date in dates_]
+                most_recent_date = max(dates)
                 docs = self.get_documents_from_dataframe(dataframe = df, document = col_to_summarize, chunk_size= chunk_size, chunk_overlap= chunk_overlap)
 
                 # result = self.__chain.invoke(docs)
@@ -140,8 +150,11 @@ class Summarizer :
                 result = result['output_text']
                 result = re.sub(r'[#$].*?:|\*|\n|#', '', result)
 
-                json_data[index]['decription'] = result
-
+                json_data[index]['description'] = result
+                json_data[index]['date'] = most_recent_date.strftime("%Y-%m-%d")
+                json_data[index]['sources'] = list(set(urls))
+        
+        logger.info('Description generated successfully!')
         return json_data
 
     # ------------------------------- PROPERTIES --------------------------------------------------------------------------

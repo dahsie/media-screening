@@ -3,7 +3,7 @@ from media.src.utils.utils import create_logger
 from datetime import datetime
 import json
 
-logger = create_logger(__name__, 'filtering.log')
+logger, logfile_path = create_logger(__name__, 'filtering.log')
 
 
 class Filter :
@@ -60,7 +60,11 @@ class Filter :
         self.__decision_function_args: dict = decision_function_args
         self.empty_companie_name_index = empty_companie_name_index
         self.filename = filename
+        
         self.__results: list[str] = None
+        self.logfile_path = logfile_path
+        logger.info("Filter has been successfully initialized!")
+       
     
     def filtering(self, liste_dict : list[dict]) -> None :
         """
@@ -77,6 +81,8 @@ class Filter :
             list[dict]: The combined list of desirable and non-desirable dictionaries after filtering.
         """
         # print(liste_dict[0].keys())
+        logger.info('Starting filtering!')
+        logger.info('Filtering ...')
         current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
         base_id = current_datetime.replace('-', '').replace('_', '')
         for index, item in enumerate(liste_dict):
@@ -101,6 +107,11 @@ class Filter :
             self.save_to_json(data_to_save= results, filename = fname)
         
         self.__results = results
+        
+        logger.info(f"number of relevant news before grouping : {len(self.__desirable)}")        
+        logger.info(f"number of irrelevant news before grouping : {len(self.__non_desirable)}")
+        logger.info('Filtering ended successfully!')
+
         return self.__desirable, self.__non_desirable
         
     def save_to_json(self,data_to_save: list[dict], filename : str) -> None :
@@ -112,6 +123,7 @@ class Filter :
         with open(filename, "w") as final:
             json.dump(data_to_save, final, indent=4)
             print("saved !")
+            logger.info(f"data saved to this path : {filename}")
             
     #--------------------------------------- PROPERTIES --------------------------------------------------------------------
     

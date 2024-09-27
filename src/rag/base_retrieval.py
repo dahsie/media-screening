@@ -210,20 +210,30 @@ class RetrivalBase(ABC):
                 pop_index.append(index)
                 continue
             if dict_instance and 'impacted_business_sectors' not in keys :
-                item['impacted_business_sectors'] = []
+                self.all_results[index]['impacted_business_sectors'] = []
             try :
                 
                 if item['impacted_company'] is None or item['impacted_company'].lower() in self.liste:
-                    item['impacted_company'] = ''
-                    item['core_company'] = ''
+                    #item['impacted_company'] = ''
+                    #item['core_company'] = ''
+                    self.all_results[index]['impacted_company'] = ''                     
+                    self.all_results[index]['core_company'] = ''
+
                 else :
                     core_name = self.core_chain.invoke(item['impacted_company']).strip()
-                    item['core_company'] = core_name if len(core_name) !=0 else item['impacted_company']
-                for location in item['locations'] :
-                    if location['city'] is None or location['city'].lower() in liste:
-                        location['city'] = ''
-                    elif location['country'] is None or location['country'].lower() in self.liste:
-                        location['country'] = ''
+                    self.all_results[index]['core_company'] = core_name if len(core_name) !=0 else item['impacted_company']
+                for index1, location in enumerate(item['locations']):
+                    location_keys = list(location.keys())                    
+                    if 'city' in location_keys and (location['city'] is None or location['city'].lower() in liste):
+                        #location['city'] = ''
+                        self.all_results[index]['locations'][index1]['city'] = ''
+                    elif 'country' in location_keys and (location['country'] is None or location['country'].lower() in self.liste):
+                        #location['country'] = ''
+                        self.all_results[index]['locations'][index1]['country'] = ''
+                    elif 'city' not in  location_keys: 
+                        self.all_results[index]['locations'][index1]['city'] = ''
+                    elif 'country' not in  location_keys: 
+                        self.all_results[index]['locations'][index1]['country'] = ''
             except Exception as e :
                 # print(item)
                 pop_index.append(index)

@@ -76,3 +76,5 @@ class LaborStrike(BaseModel):
     """
     labor_strike: Literal['yes', 'no']
     justification: str = Field(description="Justify your answer")
+        
+#TODO : Add another class to indicate any news field

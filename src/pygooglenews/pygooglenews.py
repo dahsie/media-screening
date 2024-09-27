@@ -7,13 +7,18 @@ from datetime import datetime # New import
 
 # The function above is a new one added to the original file, if not 'from dateparser import parse as parse_date' in line 4 does not work
 def parse_date(date_string : str): 
-    return datetime.strptime(date_string, '%Y-%m-%d')
+    # parsed_date = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ")
+    parsed_date = datetime.strptime(date_string, "%Y-%m-%d")
+    # print("parsed_date :")
+    # print(parsed_date)
+    return parsed_date
 
 class GoogleNews:
-    def __init__(self, lang = 'en', country = 'US'):
+    def __init__(self, headers = None, lang = 'en', country = 'US'):
         self.lang = lang.lower()
         self.country = country.upper()
         self.BASE_URL = 'https://news.google.com/rss'
+        self.headers = headers
 
     def __top_news_parser(self, text):
         """Return subarticles from the main and topic feeds"""
@@ -61,18 +66,20 @@ class GoogleNews:
 
     def __parse_feed(self, feed_url, proxies=None, scraping_bee = None):
 
+        print(feed_url)
         if scraping_bee and proxies:
             raise Exception("Pick either ScrapingBee or proxies. Not both!")
 
         if proxies:
             r = requests.get(feed_url, proxies = proxies)
         else:
-            r = requests.get(feed_url)
+            r = requests.get(feed_url, headers = self.headers) if self.headers is not None else requests.get(feed_url)
 
         if scraping_bee:
             r = self.__scaping_bee_request(url = feed_url, api_key = scraping_bee)
         else:
-            r = requests.get(feed_url)
+            r = requests.get(feed_url, headers = self.headers) if self.headers is not None else requests.get(feed_url)
+
 
 
         if 'https://news.google.com/rss/unsupported' in r.url:
@@ -90,7 +97,9 @@ class GoogleNews:
 
     def __from_to_helper(self, validate=None):
         try:
-            validate = parse_date(validate).strftime('%Y-%m-%d')
+            # validate = parse_date(validate).strftime("%Y-%m-%dT%H:%M:%SZ")
+            validate = parse_date(validate).strftime("%Y-%m-%d")
+            # print(f"validate date : {validate}\n")
             return str(validate)
         except:
             raise Exception('Could not parse your date')

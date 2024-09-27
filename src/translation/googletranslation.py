@@ -5,7 +5,7 @@ from google.cloud import translate
 sys.path.append("../src/utils")
 from utils import split_liste, create_logger
 
-logger = create_logger(__name__, 'googletranslator.log')
+logger = create_logger(__name__, '/home/dataiku/workspace/project-lib-versioned/python/media/log/googletranslator.log')
 
 class GoogleTranslate :
     """

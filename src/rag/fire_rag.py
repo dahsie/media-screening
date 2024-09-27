@@ -7,7 +7,9 @@ from media.src.output_parsers.output_parsers import *
 
 from media.src.prompts import fire_rag_prompts
 from media.src.questions import fire_rag_questions
+from media.src.utils.utils import create_logger
 
+logger, logfile_path = create_logger(__name__, 'fire_rag.log')
 
 class FireRAG(RetrivalBase):
     
@@ -79,6 +81,10 @@ class FireRAG(RetrivalBase):
         # Questions
         self.__query1, self.__query2, self.__query3, self.__query5 = fire_rag_questions.query1, fire_rag_questions.query2, fire_rag_questions.query3, fire_rag_questions.query5
         
+        self.logfile_path = logfile_path
+        
+        logger.info("FireRAG initialize successfully!")
+        
     def retrieve_infos(self, dataframe) :
         """
         Retrieves and processes information from the given DataFrame with multiple queries and parses the results.
@@ -109,10 +115,11 @@ class FireRAG(RetrivalBase):
 
 
             print("first retrieval")
-
+            logger.info("first retrieval")
             sources, published_date1,str_doc1 = self._retrieve(self.__query1)
 
             if str_doc1 is None :
+                logger.info(f" str_doc1 is None : {index}")
                 continue # No ducument are retrieve for the first query so there is no need to continue, we must pass to the next iteration
 
             if doc_number < self.max_doc :
@@ -122,12 +129,16 @@ class FireRAG(RetrivalBase):
 
             if response1 == '' :
                 fail.append(label)
+                logger.info(f"fail label = {label}")
+                logger.info('response1 is empty')
                 continue # The need to get response for the remaining queries because we do not find the company name which is impacted but the fire at factory
             try:
                 response1 = self.parser_companies_names.parse(response1)
                 company = response1['company']
 
                 if company is None or company.lower() in self.liste :
+                    logger.info(f'company is None or belongs to {self.liste}')
+                    logger.info(f'company = {company }')
                     continue # N need to continue
 
                 result['impacted_company'] = company
@@ -139,6 +150,7 @@ class FireRAG(RetrivalBase):
 
             except Exception as e :
                 print(f" error parsing response1 {e}")
+                logger.error(f"error parsing response1 :{e}. error occur when proccessing label = {label}")
 
             if retrieve == True :
 
@@ -151,11 +163,13 @@ class FireRAG(RetrivalBase):
                 sources = sources + source2 + source5
 
                 print('second retrieval')
+                logger.info('second retrieval')
 
             else :
                 str_doc2, str_doc3, str_doc5 = str_doc1, str_doc1, str_doc1
                 retrieve = False
                 print('no second retrieval')
+                logger.info('No second retrieval')
 
 
 
@@ -173,8 +187,10 @@ class FireRAG(RetrivalBase):
                 except Exception as e :
                     print(f" error parsing response2 : {e}")
                     result["impacted_business_sectors"] = []
+                    logger.error(f" error parsing response2 : {e}")
             else :
                 result["impacted_business_sectors"] = []
+                query3 = self.__query3.format(company = company, business_sectors = '')
 
             if final['response5'] != '':
                 try :
@@ -183,6 +199,7 @@ class FireRAG(RetrivalBase):
 
                 except Exception as e :
                     print(f" error parsing response4 : {e}")
+                    logger.error(f" error parsing response4 : {e}")
             else :
                 result["fire_plant"] = {'fire_plant': {'fire_plant': 'no', 'justification':''}}
 
@@ -190,6 +207,7 @@ class FireRAG(RetrivalBase):
                 source3, _ ,str_doc3 = self._retrieve(query3)
                 sources += source3
                 print('3rd retrieval')
+                logger.info('3rd retrieval')
 
             response3 = self.__chain3.invoke({'context' : str_doc3, 'company':company , 'query' : query3})
 
@@ -199,6 +217,7 @@ class FireRAG(RetrivalBase):
                     result["automotive_industry"] = response3
                 except Exception as e :
                     print(f" error parsing response3 : {e}")
+                    logger.error(f" error parsing response3 : {e}")
                     result["automotive_industry"] = {'concerned' : 'unknow', 'justification' : 'unknown'}
 
             else :

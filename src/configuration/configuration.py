@@ -6,10 +6,10 @@ from typing import Tuple, Optional, Union, List, Dict
 import numpy as np
 
 from media.src.utils.utils import create_logger
-from media.src.translation.dataikugoogletranslation import DataikuGoogleTranslate
+from media.src.translation.dataikugoogletranslation_copy import DataikuGoogleTranslate
 
 
-logger = create_logger(__name__, 'configuration.log')
+logger, logfile_path = create_logger(__name__, 'configuration.log')
 
 class Configuration:
     """
@@ -70,6 +70,8 @@ class Configuration:
 
         self.__validate_news_config()
         self.__news_config()
+        self.logfile_path  = logfile_path 
+        
    
     
     def __validate_params(self, initial_config_file : str, initial_config_dict : dict ) -> None:

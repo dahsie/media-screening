@@ -9,8 +9,12 @@ from media.src.output_parsers.output_parsers import *
 from media.src.prompts import strike_rag_prompts
 from media.src.questions import strike_rag_questions
 
+
 #from media.src.utils.utils import create_logger
 
+from media.src.utils.utils import create_logger
+
+logger, logfile_path = create_logger(__name__, 'strike_rag.log')
 
 class StrikeRAG(RetrivalBase):
     """
@@ -75,6 +79,10 @@ class StrikeRAG(RetrivalBase):
         self.__query1 , self.__query2, self.__query3 = strike_rag_questions.query1, strike_rag_questions.query2, strike_rag_questions.query3
         self.__query4, self.__query5 = strike_rag_questions.query4, strike_rag_questions.query5
         
+        self.logfile_path = logfile_path
+        
+        logger.info("StrikeRAG initialize successfully!")
+        
     def retrieve_infos(self, dataframe) :
         """
         Initializes the StrikeRAG instance with specified parameters.
@@ -99,7 +107,7 @@ class StrikeRAG(RetrivalBase):
                             # But for the remaining questions it will depend of the maximumun  number of documents in the vectores store. It the maximaum number it under self.max_doc so then no document will be retrieve for the remaining queriesfor a given iteration. 
                     
             ## Create a RAG database
-            print(f" document creation : {index}")
+            #print(f" document creation : {index}")
             data_cat = dataframe.loc[dataframe['class']==label, :]
             docs = self._get_documents_from_dataframe(data_cat,chunk_size=self.chunk_size, chunk_overlap=self.chunk_overlap)
             vectores = self._create_db(docs)
@@ -107,12 +115,14 @@ class StrikeRAG(RetrivalBase):
             self._retriever = vectores.as_retriever(search_kwargs={'k': doc_number})
             
             print("first retrieval")
+            logger.info("first retrieval")
             
             sources, published_date1,str_doc1 = self._retrieve(self.__query1)
             
             if str_doc1 is None :
                 continue # No ducument are retrieve for the first query so there is no need to continue, we must pass to the next iteration
                 print(f" str_doc1 is None : {index}")
+                logger.info(f" str_doc1 is None : {index}")
             if doc_number < self.max_doc :
                 retrieve = False # The document should be retrieve for the remaining queries
                 
@@ -122,6 +132,8 @@ class StrikeRAG(RetrivalBase):
             if response1 == '' :
                 fail.append(label)
                 print('response1 is empty')
+                logger.info(f"fail label = {label}")
+                logger.info('response1 is empty')
                 continue # The need to get response for the remaining queries because we do not find the company name which is impacted but the strike
             try:
                
@@ -130,6 +142,8 @@ class StrikeRAG(RetrivalBase):
               
                 if company is None or company.lower() in self.liste :
                     print('company is None or belongs to self.liste')
+                    logger.info(f'company is None or belongs to {self.liste}')
+                    logger.info(f'company = {company }')
                     continue # N need to continue
     
                 result['impacted_company'] = company
@@ -141,9 +155,7 @@ class StrikeRAG(RetrivalBase):
                 
             except Exception as e :
                 print(f" error parsing response1 {e}")
-            
-           
-            
+                logger.error(f"error parsing response1 :{e}. error occur when proccessing label = {label}")
             if retrieve == True :
                 
                 input_retrieve = {'query2' : query2, 'query4' : query4, 'query5':query5}
@@ -155,11 +167,13 @@ class StrikeRAG(RetrivalBase):
                 source5, _, str_doc5 = r['context5']
                 sources = sources + source2 + source4 + source5
                 print('second retrieval')
+                logger.info('second retrieval')
             else :
                 str_doc2, str_doc4, str_doc3, str_doc5 = str_doc1, str_doc1, str_doc1, str_doc1
                 published_date4 = published_date1
                 retrieve = False
                 print('no second retrieval')
+                logger.info('No second retrieval')
            
             #query4 = query4 + f" Keep in mind that the published dates of the current strike are  : {published_date4} and today is :{date.today().strftime('%Y-%m-%d')} ."
             query4 = query4 + f" Keep in mind that the published dates of the current strike are  : {published_date4}. If the context and the published date does not allow you to respond then responde 'unknown'."
@@ -178,6 +192,7 @@ class StrikeRAG(RetrivalBase):
                           
                 except Exception as e :
                     print(f" error parsing response2 : {e}")
+                    logger.error(f" error parsing response2 : {e}")
                     result["impacted_business_sectors"] = []
             else :
                 result["impacted_business_sectors"] = []
@@ -189,6 +204,7 @@ class StrikeRAG(RetrivalBase):
                     result["temporality"] = response4
                 except Exception as e :
                     print(f" error parsing response4 : {e}")
+                    logger.error(f" error parsing response4 : {e}")
                     result["temporality"] = {"strike_status" : "unknown", "justification" : ""}
             else :
                 result["temporality"] = {"strike_status" : "unknown", "justification" : ""}
@@ -200,6 +216,7 @@ class StrikeRAG(RetrivalBase):
                     result["strike"] = response5
                 except Exception as e :
                     print(f" error parsing response4 : {e}")
+                    logger.error(f" error parsing response4 : {e}")
                     result["strike"] = {"labor_strike": "no", "justification":""}
             else:
                 result["strike"] = {"labor_strike": "no", "justification":""}
@@ -209,6 +226,7 @@ class StrikeRAG(RetrivalBase):
                 source3, _ ,str_doc3 = self._retrieve(query3)
                 sources += source3
                 print('3rd retrieval')
+                logger.info('3rd retrieval')
             
             response3 = self.__chain3.invoke({'context' : str_doc3, 'query' : query3})
             
@@ -220,6 +238,7 @@ class StrikeRAG(RetrivalBase):
         
                 except Exception as e :
                     print(f" error parsing response3 : {e}")
+                    logger.error(f" error parsing response3 : {e}")
                     result["automotive_industry"] = {'concerned' : 'unknow', 'justification' : ""}
             else : 
                 result["automotive_industry"] = {'concerned' : 'unknow', 'justification' : ""}
@@ -228,7 +247,7 @@ class StrikeRAG(RetrivalBase):
             result['sources'] = list(set(sources))
             
             vectores.delete([vectores.index_to_docstore_id[i] for i in range(vectores.index.ntotal)]) # FAISS
-
+            logger.info(f'vectorstore database is clear out for label = {label}')
             tmp_result = {key: result[key] for key in self.keys_order if key in list(result.keys())}
             
             results.append(tmp_result)
@@ -239,6 +258,6 @@ class StrikeRAG(RetrivalBase):
             
             self.number_token = self.number_token + len(self.__query1) + len(query2) + len(query3) + len(query4) + len(query5)
             self.number_token = self.number_token + len(str_doc1) + len(str_doc2) + len(str_doc3) + len(str_doc4) + len(str_doc5)
-
+        logger.info(f"fail labels = {self.failed_labels} out of {len(np.unique(dataframe['class']))} labels")
         self.results = results
         self.failed_labels = fail

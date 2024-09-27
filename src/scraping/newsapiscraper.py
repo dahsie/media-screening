@@ -14,7 +14,7 @@ from tqdm import tqdm
 #from utils import create_logger
 
 from media.src.utils.utils import create_logger
-logger = create_logger(__name__, 'news_api_scrapper.log')
+logger, logfile_path = create_logger(__name__, 'news_api_scrapper.log')
 
 class NewsApiScraper(Scraper) :
     """
@@ -89,7 +89,7 @@ class NewsApiScraper(Scraper) :
     def __init__(self, api_key :str,country :str ="US",lang : str="en",query :str = None,
                  topic :str = None,save_path : str = None,start_date :str= None, #year-moonth-day (i.e '2024-05-18')
                  end_date :date = date.today().strftime('%Y-%m-%d'),ecart : int =1,
-                 timeout : float = 5
+                 timeout : float = 7
                 ) -> None:
         """
         Initializes the NewsApiScraper with the provided parameters.
@@ -260,7 +260,7 @@ class NewsApiScraper(Scraper) :
 
             text =''
             try :
-                response = requests.get(link)
+                response = requests.get(link, timeout = self.timeout)
 
                 if response.status_code ==200 :
 
@@ -294,4 +294,5 @@ class NewsApiScraper(Scraper) :
         self.scrapping(**self.articles)
         super(NewsApiScraper, self).news_collection(self.articles)
         logger.info("News collection completed.")
+        self.logfile_path = logfile_path
         
