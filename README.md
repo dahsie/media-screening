@@ -559,8 +559,9 @@ summarizer = Summarizer(google_api_key = GOOGLE_API_KEY, max_output_tokens = 50)
 rag_dataset = dataiku.Dataset("fire_rag_data")
 rag_data = rag_dataset.get_dataframe()
 
-grouped_result_path = f"fire_groupped_result_{current_date}.json"
-grouped_json_data = read_dataiku_json(folder_name = "fire_grouping_ouput", file_name = grouped_result_path)
+grouped_result_path = f"groupped_result_{current_date}.json"
+grouped_json_data = read_dataiku_json(folder_name = "grouping_output", file_name = grouped_result_path)
+
 
 if len(grouped_json_data) !=0: # Generate summarization only if there are some relevant news.
     results = summarizer.genearate_description(json_data=grouped_json_data, dataframe=rag_data)
@@ -568,8 +569,8 @@ else:
     results = []
 # Write recipe outputs
 
-result_path =f"fire_final_results_{current_date}.json"
-write_dataiku_json(folder_name ="fire_final_results", file_name =result_path, json_data= results)
+result_path =f"final_results_{current_date}.json"
+write_dataiku_json(folder_name ="Final_results", file_name =result_path, json_data= results)
 
 write_logger_file(logger_folder_name = 'fire_summarizer_log', log_file_name = summarizer.logfile_path, final_log_name="fire_summarizer_log.log")
 
