@@ -356,9 +356,9 @@ We start RAG process by creating an indexing database or vectorstore as this ima
 ![Local Image](images/indexing.png)
 
 After creating the vectorstore, the RAG process consist of two phases as the image below shows:
-![Local Image](images/rag phase.png)
+![Local Image](images/rag_phase.png)
 To improve information Retrieval process, we extract information iteratively as the iamge shows :
-![Local Image](images/iterative rag.png)
+![Local Image](images/iterative_rag.png)
 ```py
 import dataiku
 import pandas as pd, numpy as np
