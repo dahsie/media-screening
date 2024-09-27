@@ -581,4 +581,4 @@ This is an exemple of final results :
 
 
 [Local Image](../media-screening/images/results.png)
-<img title="Exemple of result" alt="Alt text" src="../media-screening/images/results.png">
+<img title="Exemple of result" src="../media-screening/images/results.png>
