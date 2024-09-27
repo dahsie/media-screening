@@ -1,8 +1,6 @@
 # Media screening
 
-We build a pipeline which scrape news from internet related to some event like **labor strike**, **fire plant** and **flood** and then apply some sophisticated **Machine Learning**, **Deep Learning** and **Generative AI** in order to detect some relevant news that can impact Supplier Chain. To be accurate about classifying a collected news as relevant or not, we extract some information and match those informations to a supplier database. This image below describe the whole pipeline we put in place
-
-![image.png](attachment:image.png)
+We build a pipeline which scrape news from internet related to some event like **labor strike**, **fire plant** and **flood** and then apply some sophisticated **Machine Learning**, **Deep Learning** and **Generative AI** in order to detect some relevant news that can impact Supplier Chain. To be accurate about classifying a collected news as relevant or not, we extract some information and match those informations to a supplier database.
 ## Install
 
 We have to branch :
@@ -285,9 +283,7 @@ write_logger_file(logger_folder_name = 'strike_translation_log', log_file_name =
 ```
 
 ### CLustering
-After translating the collected news and dropping duplications base on the text, title and link, there are also some very similar news. We want to cluster the news before extracting information on the each cluster. So we compute the embedding of each text and then apply the hierarchical clustering technique. The image below descibe the clustering process :
-![image-2.png](attachment:image-2.png)
-
+After translating the collected news and dropping duplications base on the text, title and link, there are also some very similar news. We want to cluster the news before extracting information on the each cluster. So we compute the embedding of each text and then apply the hierarchical clustering technique. 
 ```py
 import dataiku
 import pandas as pd
@@ -343,23 +339,11 @@ write_logger_file(logger_folder_name = 'strike_clustering_log', log_file_name = 
 
 ```
 
-Clustering resulats :
-
-![image-3.png](attachment:image-3.png)
 
 ### RAG : Retreival Augmented Generation 
 
 We used the **RAG** technique in order to extract some information, for instance, companies names, their location (cities and countris where the strike is taking place), the activities sectors(this allow to know if their activities are related to automotive construction), the strike stutus(if the strike is ongoing, upcoming, ended or avoided because no interest for has if the strike is ended or avoider), the naure of the strike(labor strike in this exemple. This allows avoiding some other strike like hunger strike, etc.).  All those information couple with the [**matching process**](#matching_process) allows us to classify a news as relevant or not.
 
-We start RAG process by creating an indexing database or vectorstore as this image shows 
-
-![image-4.png](attachment:image-4.png)
-
-After creating the vectorstore, the RAG process consist of two phases as the image below shows:
-![image-5.png](attachment:image-5.png)
-
-To improve information Retrieval process, we extract information iteratively as the iamge shows :
-![image-6.png](attachment:image-6.png)
 ```py
 import dataiku
 import pandas as pd, numpy as np
@@ -577,6 +561,3 @@ write_logger_file(logger_folder_name = 'fire_summarizer_log', log_file_name = su
 ```
 
 
-This is an exemple of final results :
-
-image.png
