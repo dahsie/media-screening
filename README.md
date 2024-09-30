@@ -583,7 +583,7 @@ This is an exemple of final results :
 ![Local Image](images/results.png)
 
 
-# Buildign new event(e.g. flood)
+# Building new event(e.g. flood)
 
 ### Step 1: keywords
 Define the keywords that allow collecting news related to the event. It can be a list of keywords in order to be specific.
@@ -614,7 +614,7 @@ Define some prompts that guide the model on how to behave. You can be inspired b
 Define a decision function that classify a news as relevant or not after being processed by **RAG** technique and **matched** with a given **suppliers database**
 This decision function should rely on the responses of each answered question during **RAG** and the **matching process**
 
-# Step 8: RAG
+### Step 8: RAG
 
 Implement this abstract methode : 
 ```py
