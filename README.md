@@ -581,3 +581,51 @@ This is an exemple of final results :
 
 
 ![Local Image](images/results.png)
+
+
+# Buildign new event(e.g. flood)
+
+### Step 1: keywords
+Define the keywords that allow collecting news related to the event. It can be a list of keywords in order to be specific.
+
+### Step 2: country-code, language-code
+
+Set a list of dictionnary whithin your config file. This list of dictionnary should contains country code and country langauge.
+You can provide this if you deem that the list you have at your disposal are not sufficient so you are extended it. 
+
+### Step 3 : questions
+Define a list of question that allow you to classify if yes or not a news is relevant. 
+You can put this list of questions whithin a python file like those in this files 'src/questions/strike_rag_questions.py'
+
+### Step 4 : desirable sectors
+Define a list of non desirable sectors or use the one provide here : 'src/non_desirable_sectors/sectors_to_discard.py'
+
+### Step 5: output parser
+
+Implement different pydantic objects that should be the keys of the dictionnary representing the resulat of a process article.
+You can be can be inspired by those exemples : 'src/outpout_parsers/output_parsers.py' or use them if you do not have a news specific field to add.
+
+### Step 6 : prompts
+Define some prompts that guide the model on how to behave. You can be inspired by those ones : 'src/prompts'
+
+
+### Step 7: decision function
+
+Define a decision function that classify a news as relevant or not after being processed by **RAG** technique and **matched** with a given **suppliers database**
+This decision function should rely on the responses of each answered question during **RAG** and the **matching process**
+
+# Step 8: RAG
+
+Implement this abstract methode : 
+```py
+@abstractmethod
+    def retrieve_infos(self, dataframe : pd.DataFrame) :
+        pass
+```
+
+by inheriting this class 'src/rag/base_retrieval.py'. 
+
+
+
+
+
