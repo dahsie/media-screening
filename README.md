@@ -4,17 +4,18 @@ We build a pipeline which scrape news from internet related to some event like *
 ## Install
 
 We have to branch :
-* Master : This branch work on **GCP**
+* gcp : This branch work on **GCP**
 * Dataiku : This branch is a dataiku version. Threre are some differences between the two branch. For exemple, requests are made to get access to **Gemini**, which is not the case when we are already on **GCP**
 
 ## Install all branches
-git clone --branch test --single-branch https://github.com/dahsie/media-screening.git
+git clone https://github.com/dahsie/media-screening.git
 
 ## Install only Dataiku branch :
 git clone --branch dataiku --single-branch https://github.com/dahsie/media-screening.git
 
-## Install only Master branch :
-git clone --branch master --single-branch https://github.com/dahsie/media-screening.git
+# Install only gcp_branch branch :
+git clone --branch gcp_branch --single-branch https://github.com/dahsie/media-screening.git
+
 
 
 ## Creating configuration file.
