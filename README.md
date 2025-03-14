@@ -17,6 +17,13 @@ git clone --branch dataiku --single-branch https://github.com/dahsie/media-scree
 git clone --branch gcp_branch --single-branch https://github.com/dahsie/media-screening.git
 
 
+# Insall requirements
+```sh
+pip insall -r requirements.txt
+```
+# Adding environment variables:
+1. GOOGLE_API_KEY
+2. NEWS_API_KEY
 
 ## Creating configuration file.
 In this part, we translate each keywords to some languages, depending on the list of language code we have in our disposal.
