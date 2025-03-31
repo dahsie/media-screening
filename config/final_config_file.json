@@ -1,0 +1,128 @@
+{
+    "keywords": [
+        "strike",
+        "picket line",
+        "employee protest"
+    ],
+    "country_lang": [
+        {
+            "country": "BE",
+            "lang": "fr",
+            "queries": [
+                "gr\u00e8ve",
+                "piquet de gr\u00e8ve",
+                "protestation des employ\u00e9s"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "fr",
+            "queries": [
+                "gr\u00e8ve",
+                "piquet de gr\u00e8ve",
+                "protestation des employ\u00e9s"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "de",
+            "queries": [
+                "schlagen",
+                "Streikposten",
+                "Mitarbeiterprotest"
+            ]
+        },
+        {
+            "country": "CH",
+            "lang": "it",
+            "queries": [
+                "sciopero",
+                "cordone di scioperanti",
+                "protesta dei dipendenti"
+            ]
+        },
+        {
+            "country": "BG",
+            "lang": "bg",
+            "queries": [
+                "\u0441\u0442\u0430\u0447\u043a\u0430",
+                "\u043f\u0438\u043a\u0435\u0442 \u043b\u0438\u043d\u0438\u044f",
+                "\u043f\u0440\u043e\u0442\u0435\u0441\u0442 \u043d\u0430 \u0441\u043b\u0443\u0436\u0438\u0442\u0435\u043b"
+            ]
+        },
+        {
+            "country": "BR",
+            "lang": "pt",
+            "queries": [
+                "batida",
+                "linha de piquete",
+                "protesto de funcion\u00e1rios"
+            ]
+        }
+    ],
+    "NEWS_API_KEY": "b1dcacfbc49d4ac1a48db5f5652b11a2",
+    "rag_cong": {
+        "vertexai_llm": "gemini-1.5-flash",
+        "vertexai_embedding_name": "models/text-embedding-004",
+        "chunk_size": 2000,
+        "chunk_overlap": 10,
+        "max_doc": 5,
+        "retry": 1
+    },
+    "decision_function_args": {
+        "sectors_to_discard": [
+            "hospital",
+            "health",
+            "healthcare",
+            "medical",
+            "education",
+            "school",
+            "schools",
+            "media",
+            "pharmaceutical",
+            "pharmaceuticals",
+            "public transportation",
+            "public bus",
+            "railroad",
+            "railways",
+            "tourism",
+            "public service",
+            "public services",
+            "public administration",
+            "medical services",
+            "government",
+            "government service",
+            "public ddministration",
+            "waste management",
+            "social services",
+            "cleaning",
+            "cleaning services",
+            "public transport",
+            "infrastructure",
+            "food delivery",
+            "food",
+            "travel",
+            "hospitality",
+            "food",
+            "hunger",
+            "aviation",
+            "airport services",
+            "hospitality",
+            "postal and courier services",
+            "postal",
+            "courier services",
+            "airline industry",
+            "airline",
+            "shipping",
+            "logistics",
+            "maritime transport",
+            "logistics and transportation"
+        ],
+        "desirable_temporalities": [
+            "upcoming",
+            "ongoing",
+            "unknown"
+        ]
+    },
+    "project_id": "irn-67050-lab-65"
+}
