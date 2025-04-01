@@ -342,3 +342,21 @@ def get_api_key(name:str)->str:
                 break
                     
     return secret_value
+
+def local_to_global()->None:
+    """
+    Pass the local variables to global, changing the format
+    """
+    client = dataiku.api_client()
+    project = client.get_default_project()
+
+    local_variable = get_global_variables()["local"]
+    variable = get_global_variables()
+
+    if "keywords" in local_variable:
+        variable["standard"]["keywords"] = local_variable["keywords"].split(",")
+        if len(variable["standard"]["name_table"].split("_"))<2:
+            variable["standard"]["name_table"] = datetime.today().strftime('%Y%m%d%H%M') + "_" + local_variable["name_table"]
+            variable["local"]["name_table"] = datetime.today().strftime('%Y%m%d%H%M') + "_" + local_variable["name_table"]
+
+    project.set_variables(variable)
